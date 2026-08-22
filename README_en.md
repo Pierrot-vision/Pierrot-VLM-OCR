@@ -36,6 +36,8 @@ Feed it a page image and it goes **layout → region recognition → assembly**,
 > included.** The model code is the same implementation as in the training repository with
 > only the training paths removed, so checkpoints stay compatible.
 
+* The training code and trained weights are not publicly released at this time.
+
 ## 📰 News
 
 - 2026-08-22 — 🏆 **2nd on KDoc-OCRBench-V2** — **1st** excluding commercial models (3-axis mean 71.80)
