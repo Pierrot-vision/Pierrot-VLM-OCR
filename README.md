@@ -35,14 +35,6 @@
 > 학습 엔진(`pierrot/core`) · 데이터 빌더 · 데이터셋 어댑터는 **들어 있지 않습니다.**
 > 모델 코드는 학습 저장소와 같은 구현이고 학습 전용 경로만 제거했으므로 체크포인트는 그대로 호환됩니다.
 
-모델은 순수 PyTorch 스크래치 구현이고, 알고리즘 골격은 **MinerU2.5** 를 따릅니다 —
-태스크별 헤드가 하나도 없고 **체크포인트 하나가 프롬프트만 바꿔** 레이아웃 검출과
-영역 인식을 모두 수행하는 coarse-to-fine 2단계입니다.
-
-또한 이곳은 **SOTA를 목표로 하지 않습니다.** 1인 프로젝트의 리소스 안에서
-"어디까지 가능한가"를 재는 실험이며, 실패와 오측정까지 [LAB](#-실험-노트-lab) 에
-그대로 적어 둡니다.
-
 ## 📰 News
 
 - 2026-08-22 — 🚀 **추론 코드 공개**
@@ -51,14 +43,31 @@
 
 ## 📊 성능 — KDoc-OCRBench-V2 (849쪽 전량)
 
-| 순위 | 모델 | Header/Footer | Long Text | Table | 3축 평균 | 채점 |
-|---:|---|---:|---:|---:|---:|---|
-| 1 | BizOnAI-OCR | 94.7 | **77.9** | **58.1** | **76.9** | 정식 |
-| **2** | **Ours** | 96.09 | 76.61 | 42.70 | 71.80 | 공백무시 |
-| 3 | PaddleOCR-VL | 95.6 | 66.2 | 48.9 | 70.2 | 정식 |
-| 4 | DeepSeek OCR | 95.8 | 64.5 | 46.6 | 69.0 | 정식 |
-| 5 | olmOCR v0.2.0 | 95.2 | 65.0 | 44.9 | 68.4 | 정식 |
-| 6 | GLM-4.1V-OCR | **97.4** | 52.9 | 30.0 | 60.1 | 정식 |
+| 순위 | 모델 | Header/Footer | Long Text | Table | 3축 평균 |
+|---:|---|---:|---:|---:|---:|
+| 1 | BizOnAI-OCR *(상업용)* | 94.7 | **77.9** | **58.1** | **76.9** |
+| **2** | **Ours** | 96.09 | 76.61 | 42.70 | 71.80 |
+| 3 | PaddleOCR-VL | 95.6 | 66.2 | 48.9 | 70.2 |
+| 4 | DeepSeek OCR | 95.8 | 64.5 | 46.6 | 69.0 |
+| 5 | olmOCR v0.2.0 | 95.2 | 65.0 | 44.9 | 68.4 |
+| 6 | GLM-4.1V-OCR | **97.4** | 52.9 | 30.0 | 60.1 |
+
+---
+
+## 🎬 데모
+
+3패널 재생 뷰어([tools/make_demo_viewer.py](tools/make_demo_viewer.py))로 만든 실제 파싱 과정입니다 —
+왼쪽 원본 + 레이아웃 박스, 가운데 모델 원시 출력, 오른쪽 재조판 결과.
+용량이 커서 릴리스 자산으로 올려 두었습니다(클릭하면 재생).
+
+| 데모 | 문서 | 크기 |
+|---|---|---:|
+| [▶ demo_paper.gif](https://github.com/Pierrot-vision/Pierrot-VLM-OCR/releases/download/v0.1.0/demo_paper.gif) | 2단 조판 학술 논문 | 32 MB |
+| [▶ demo_kdi.gif](https://github.com/Pierrot-vision/Pierrot-VLM-OCR/releases/download/v0.1.0/demo_kdi.gif) | 공공 보고서 | 28 MB |
+
+> 재생 순서는 우리가 정한 것이고, 좌표와 내용은 모델이 낸 값 그대로입니다 —
+> 이 모델은 1패스 인터리브가 아니라 coarse-to-fine 2패스라 중앙 스트림은
+> **두 패스의 실제 출력을 읽기순서로 엮은 것**입니다.
 
 ---
 
@@ -73,14 +82,6 @@ conda activate pierrot-ocr
 cd Pierrot_VLM_OCR
 pip install -r requirements.txt
 ```
-
-의존성은 여섯 개뿐입니다 — `torch` · `transformers`(토크나이저 로드 전용) ·
-`safetensors` · `huggingface_hub` · `pillow` · `numpy`.
-모델 구현이 스크래치(raw config 파싱)라 **특정 transformers 버전이 필요 없습니다.**
-학습용 `accelerate` 는 들어가지 않습니다.
-
-> GPU 환경에서는 CUDA 버전에 맞는 PyTorch 빌드를 먼저 설치하는 것을 권장합니다.
-> bf16 기준 가중치가 ~2 GB 라 8 GB 급 GPU 에서도 페이지 파싱이 돕니다.
 
 ---
 
@@ -120,10 +121,6 @@ python infer/infer_pierrotocrvlm.py --model ./outputs/pierrotocrvlm_v3/final \
 
 ### 여러 장 배치 — `benchmark/run_pages.py`
 
-한 장짜리 CLI 로 수백 장을 돌리면 모델을 매번 다시 올립니다(장당 20초 낭비).
-배치 러너는 모델을 한 번만 올리고 목록을 훑습니다. **추론 로직은 위 파일의 함수를
-그대로 가져다 씁니다** — 벤치마크 때문에 파싱 규칙이 갈라지면 점수가 실제와 달라집니다.
-
 ```bash
 # 벤치마크 최고점 경로(849쪽 3축 71.80 을 낸 조합)
 python benchmark/run_pages.py --model ./outputs/pierrotocrvlm_v3/final \
@@ -145,11 +142,6 @@ CUDA_VISIBLE_DEVICES=1 python benchmark/run_pages.py ... --shard 1 --num-shards 
 | `--save-layout` / `--save-trace` | 레이아웃 원시 출력 · crop 별 무절단 트레이스 저장(진단) |
 | `--shard` / `--num-shards` | 다중 GPU 분할 |
 
-> ⚠️ **모드를 잘못 고르면 옵션 효과가 0 입니다.** `--relayout-bands` 를 `hybrid-page`
-> **단독**으로 켜면 밴드를 47개 찾고도 점수가 소수점까지 같습니다 — 그 모드는
-> 통읽기를 뼈대로 써서 새로 찾은 본문이 흘러갈 통로가 없습니다.
-> `coarse-to-fine` 골격이거나 `--body-fill` 과 함께일 때만 값어치가 나옵니다.
-
 ### 파이썬에서 직접
 
 ```python
@@ -167,10 +159,6 @@ out   = model.generate(enc["input_ids"], enc["pixel_values"], enc["image_grid_th
                        eos_token_id=processor.eos_token_id)
 print(processor.tokenizer.decode(out[0][enc["input_ids"].shape[1]:], skip_special_tokens=True))
 ```
-
-전처리 예산(`min_pixels` / `max_pixels` / `layout_max_pixels`)은 학습 산출물의
-sidecar(`pierrotocrvlm_preprocessor.json`)에서 **자동 복원**됩니다 — 학습과 추론의
-이미지 토큰 수가 어긋나지 않게 하는 장치이므로 특별한 이유 없이 덮어쓰지 마세요.
 
 ---
 

@@ -36,14 +36,6 @@ Feed it a page image and it goes **layout → region recognition → assembly**,
 > included.** The model code is the same implementation as in the training repository with
 > only the training paths removed, so checkpoints stay compatible.
 
-The model is a pure-PyTorch from-scratch implementation, and the algorithmic skeleton
-follows **MinerU2.5** — there is no task-specific head at all; **a single checkpoint
-switches roles by prompt alone** in a coarse-to-fine two-pass pipeline.
-
-This project also **does not chase SOTA.** It measures how far a one-person project can
-get within its resources, and failures and mismeasurements are written down as-is in
-[LAB](#-lab-notes).
-
 ## 📰 News
 
 - 2026-08-22 — 🚀 **Inference code released**
@@ -52,14 +44,32 @@ get within its resources, and failures and mismeasurements are written down as-i
 
 ## 📊 Performance — KDoc-OCRBench-V2 (all 849 pages)
 
-| Rank | Model | Header/Footer | Long Text | Table | 3-axis mean | Scoring |
-|---:|---|---:|---:|---:|---:|---|
-| 1 | BizOnAI-OCR | 94.7 | **77.9** | **58.1** | **76.9** | official |
-| **2** | **Ours** | 96.09 | 76.61 | 42.70 | 71.80 | space-insensitive |
-| 3 | PaddleOCR-VL | 95.6 | 66.2 | 48.9 | 70.2 | official |
-| 4 | DeepSeek OCR | 95.8 | 64.5 | 46.6 | 69.0 | official |
-| 5 | olmOCR v0.2.0 | 95.2 | 65.0 | 44.9 | 68.4 | official |
-| 6 | GLM-4.1V-OCR | **97.4** | 52.9 | 30.0 | 60.1 | official |
+| Rank | Model | Header/Footer | Long Text | Table | 3-axis mean |
+|---:|---|---:|---:|---:|---:|
+| 1 | BizOnAI-OCR *(commercial)* | 94.7 | **77.9** | **58.1** | **76.9** |
+| **2** | **Ours** | 96.09 | 76.61 | 42.70 | 71.80 |
+| 3 | PaddleOCR-VL | 95.6 | 66.2 | 48.9 | 70.2 |
+| 4 | DeepSeek OCR | 95.8 | 64.5 | 46.6 | 69.0 |
+| 5 | olmOCR v0.2.0 | 95.2 | 65.0 | 44.9 | 68.4 |
+| 6 | GLM-4.1V-OCR | **97.4** | 52.9 | 30.0 | 60.1 |
+
+---
+
+## 🎬 Demo
+
+Real parsing runs captured from the 3-panel replay viewer
+([tools/make_demo_viewer.py](tools/make_demo_viewer.py)) — page + layout boxes on the left,
+raw model output in the middle, reflowed result on the right.
+They are hosted as release assets because of their size (click to play).
+
+| Demo | Document | Size |
+|---|---|---:|
+| [▶ demo_paper.gif](https://github.com/Pierrot-vision/Pierrot-VLM-OCR/releases/download/v0.1.0/demo_paper.gif) | Two-column academic paper | 32 MB |
+| [▶ demo_kdi.gif](https://github.com/Pierrot-vision/Pierrot-VLM-OCR/releases/download/v0.1.0/demo_kdi.gif) | Public-sector report | 28 MB |
+
+> The replay order is ours; the coordinates and text are exactly what the model produced.
+> This is a coarse-to-fine two-pass model, not a single-pass interleaved one, so the middle
+> stream is **the actual output of both passes woven into reading order**.
 
 ---
 
@@ -74,14 +84,6 @@ conda activate pierrot-ocr
 cd Pierrot_VLM_OCR
 pip install -r requirements.txt
 ```
-
-There are only six dependencies — `torch` · `transformers` (tokenizer loading only) ·
-`safetensors` · `huggingface_hub` · `pillow` · `numpy`. The model implementation is
-from scratch (raw config parsing), so **no specific transformers version is required**.
-`accelerate` is not needed since training is not included.
-
-> On GPU, install a PyTorch build matching your CUDA version first. Weights are ~2 GB in
-> bf16, so page parsing runs even on an 8 GB-class GPU.
 
 ---
 
@@ -121,11 +123,6 @@ text) · `<stem>_layout.jpg` (with `--save-viz`).
 
 ### Many pages — `benchmark/run_pages.py`
 
-Running hundreds of pages through the single-page CLI reloads the model every time
-(~20 s wasted per page). The batch runner loads once and walks the list. **It imports the
-inference functions from that same file** — if parsing rules forked for benchmarking, the
-scores would stop matching the real thing.
-
 ```bash
 # the best benchmark path (the combination that produced 71.80 over 849 pages)
 python benchmark/run_pages.py --model ./outputs/pierrotocrvlm_v3/final \
@@ -147,12 +144,6 @@ CUDA_VISIBLE_DEVICES=1 python benchmark/run_pages.py ... --shard 1 --num-shards 
 | `--save-layout` / `--save-trace` | Save raw layout output / untruncated per-crop traces (diagnostics) |
 | `--shard` / `--num-shards` | Multi-GPU split |
 
-> ⚠️ **Pick the wrong mode and an option does nothing.** Turning on `--relayout-bands`
-> with `hybrid-page` **alone** finds 47 bands and leaves the score identical to the
-> decimal — that mode uses whole-page reading as its skeleton, so newly found body text
-> has no channel to flow through. Bands pay off only on a `coarse-to-fine` skeleton or
-> together with `--body-fill`.
-
 ### From Python
 
 ```python
@@ -170,11 +161,6 @@ out   = model.generate(enc["input_ids"], enc["pixel_values"], enc["image_grid_th
                        eos_token_id=processor.eos_token_id)
 print(processor.tokenizer.decode(out[0][enc["input_ids"].shape[1]:], skip_special_tokens=True))
 ```
-
-Preprocessing budgets (`min_pixels` / `max_pixels` / `layout_max_pixels`) are **restored
-automatically** from the checkpoint sidecar (`pierrotocrvlm_preprocessor.json`). They keep
-the image-token count identical between training and inference, so do not override them
-without a specific reason.
 
 ---
 
