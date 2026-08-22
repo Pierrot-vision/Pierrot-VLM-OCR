@@ -26,7 +26,7 @@ detection-as-text, 표는 OTSL — 이 설계를 그대로 따랐다.
 2. **데이터 엔진** — 한국어 중심 배합 + 전량 공개 데이터 + 티처 증류
 
 학습 방법은 "스크래치"가 아니라 **modular initialization** 이다. 비전·언어는 검증된
-사전학습 부품에서 이식하고, 두 부품을 잇는 **머저 4개와 문서 파싱 능력만** 처음부터
+사전학습 부품에서 이식하고, 두 부품을 잇는 **PatchMerger 4개와 문서 파싱 능력만** 처음부터
 배운다. (모델링 *코드* 는 HF 클래스 없이 직접 작성했다.)
 
 ### 기술 계보
@@ -36,7 +36,7 @@ detection-as-text, 표는 OTSL — 이 설계를 그대로 따랐다.
 | 뿌리 | 물려받은 것 |
 |---|---|
 | **LLaVA** (2023) | ViT + 커넥터 + LLM 구성 / **백본 동결하고 커넥터만 정렬 → 전체 해제** 2단계 레시피 |
-| **Qwen2-VL → Qwen3-VL** (2024–25) | 동적 해상도 · M-RoPE · 2×2 패치 머저 · DeepStack · 32배수 격자 |
+| **Qwen2-VL → Qwen3-VL** (2024–25) | 동적 해상도 · M-RoPE · 2×2 PatchMerger · DeepStack · 32배수 격자 |
 | **MinerU2.5 / Pro** (2025) | **프롬프트로 태스크 전환** · coarse-to-fine · detection-as-text · OTSL · 정렬→파싱→hard-case 커리큘럼 |
 | PaddleOCR-VL (2025) | hard-case 분류 · 렌더 검증 · **한국어 티처** |
 | GLM-OCR (2025) | crop 병렬 추론 (MTP 는 스펙 비공개라 제외) |
@@ -47,7 +47,7 @@ detection-as-text, 표는 OTSL — 이 설계를 그대로 따랐다.
 
 | 추가 | 왜 |
 |---|---|
-| 머저 4개(DeepStack 3개 출력층 zero-init) | 압축 2.0배 부담 + 작아진 ViT 보완 |
+| PatchMerger 4개(DeepStack 3개 출력층 zero-init) | 압축 2.0배 부담 + 작아진 ViT 보완 |
 | 레이아웃 규약 3분리(fine/coarse/wild) | 데이터셋별 라벨 규약 충돌로 오분류 13.1% 발생(v1) |
 | 태스크별 해상도 예산(인식 2048 / 레이아웃 1024 토큰) | 작은 글자 오독이 다운샘플 증상으로 확인됨(v1) |
 | `Page Recognition:` 태스크 | 페이지 통읽기 데이터가 압도적으로 많음 |
@@ -62,43 +62,118 @@ detection-as-text, 표는 OTSL — 이 설계를 그대로 따랐다.
 | 구성 | 내용 | 초기화 |
 |---|---|---|
 | 비전 인코더 | Qwen3-VL-2B ViT — hidden 1024, 24층, patch 16, merge 2, DeepStack [5,11,17] · **306.2M** | 공개 `visual.*` 이식 |
-| 머저 4개 | main 1 + DeepStack 3, 출력 1024 · **83.9M** | **전부 랜덤.** DeepStack 3개는 출력층 **zero-init** |
+| PatchMerger 4개 | main 1 + DeepStack 3, 출력 1024 · **83.9M** | **전부 랜덤.** DeepStack 3개는 출력층 **zero-init** |
 | 디코더 | Qwen3-0.6B — hidden 1024, 28층, head_dim 128, GQA 16/8, QK-Norm · **596.0M** | 공개 가중치 이식 + 1D RoPE → **interleaved M-RoPE** 교체 |
 
-**핵심 리스크 경계는 머저 4개 전체다.** 이 경계의 안정화(zero-init + Stage 0 정렬)가
-초기 학습의 최대 과제였다.
+### 2.1 PatchMerger — 유일하게 처음부터 배우는 부품
 
-### 2.1 눈과 뇌는 "원래 짝"이 아니다
+**눈과 뇌는 "원래 짝"이 아니다.** 이식이라고 하면 한 모델을 통째로 가져온 것처럼
+들리지만, MinerU 도 우리도 눈과 뇌를 서로 다른 모델에서 떼어 왔다. ViT 가 원래 맞춰져
+있던 언어 공간과 실제로 붙인 디코더의 hidden 이 다르므로 **둘을 잇는 부품은 재사용이
+불가능하고 랜덤에서 다시 배워야 한다.** 그 부품이 PatchMerger 이고,
+**PierrotOCRVLM 에서 처음부터 학습되는 것은 이 4개가 전부**다(83.9M = 8.5%).
 
-이식이라고 하면 한 모델을 통째로 가져온 것처럼 들리지만, **MinerU 도 우리도 눈과 뇌를
-서로 다른 모델에서 떼어 왔다.** ViT 가 원래 맞춰져 있던 언어 공간과 실제로 붙인 디코더의
-hidden 이 다르므로 **커넥터는 재사용이 불가능하고 랜덤에서 다시 배워야 한다.**
+하는 일은 두 가지다.
 
-| | ViT 가 원래 맞춰진 hidden | 실제로 붙인 디코더 | 압축 | 새로 배우는 커넥터 |
-|---|---|---|---|---|
-| MinerU2.5 | 1536 (Qwen2-VL-2B) | 896 (Qwen2-0.5B) | 1.7배 | PatchMerger 1개 31M |
-| **PierrotOCRVLM** | **2048** (Qwen3-VL-2B) | **1024** (Qwen3-0.6B) | **2.0배** | **머저 4개 83.9M** |
+1. **m×m 이웃 패치를 하나로 합친다**(m = `spatial_merge_size` = 2) — 이미지 토큰이
+   1/4 로 줄어 시퀀스 길이와 VRAM 이 함께 준다.
+2. **언어 hidden 차원으로 투영한다** — 2048(ViT 가 맞춰져 있던 폭) → 1024(우리 디코더).
 
-판독 두 가지. ① **Stage 0(눈·뇌 동결 + 커넥터만 정렬)이 양쪽에 다 있는 이유가 이것이다** —
-구조적 필연이지 선택이 아니다. ② **우리 압축이 더 세다.** 커넥터를 1개→4개로 키우고
-DeepStack 을 넣은 것이 이 부담과 정합한다.
+```python
+# pierrot/models/pierrotocrvlm/modeling/vision.py — PierrotOCRVisionPatchMerger
+self.hidden_size = config.hidden_size * (config.spatial_merge_size ** 2)   # 1024 × 4
+self.norm        = nn.LayerNorm(self.hidden_size if use_postshuffle_norm
+                                else config.hidden_size, eps=config.layer_norm_eps)
+self.linear_fc1  = nn.Linear(self.hidden_size, self.hidden_size)           # 4096 → 4096
+self.linear_fc2  = nn.Linear(self.hidden_size, config.out_hidden_size)     # 4096 → 1024
+
+def forward(self, x):                       # (S, D) → (S/m², Dout)
+    x = self.norm(x.view(-1, self.hidden_size) if self.use_postshuffle_norm else x)
+    x = x.view(-1, self.hidden_size)        # 이웃 패치를 채널 방향으로 접는다
+    return self.linear_fc2(F.gelu(self.linear_fc1(x)))
+```
+
+패치 시퀀스가 **PatchMerger 블록 우선 순서로 정렬돼 있어** `view(-1, D·m²)` 한 번이면 이웃
+패치가 채널로 접힌다 — 별도 permute 가 필요 없다.
+
+4개는 두 종류다. 차이는 **정규화 시점** 하나뿐이다.
+
+| | 개수 | 입력 | LayerNorm 시점 | 초기화 |
+|---|---:|---|---|---|
+| main | 1 | ViT 최종층 | 합치기 **전**(D=1024) | 랜덤 |
+| DeepStack | 3 | ViT 5/11/17층 | 합친 **후**(D·m²=4096) | `linear_fc2` **zero-init** |
+
+DeepStack 쪽만 출력층을 0 으로 두는 이유: 학습 시작 시점의 주입이 **정확히 no-op** 이
+되어 랜덤 잡음이 사전학습 디코더를 흔들지 않는다. `fc1`·`norm` 은 랜덤이라 출력은 0
+이면서 gradient 는 흐른다. (조립은 학습 저장소의 로더가 한다.)
+
+**여기가 이 모델의 최대 리스크였다.** 사전학습 부품 두 개 사이에 완전 랜덤인 층이
+끼어 있으므로, Stage 0 에서 ViT·LM 을 얼려 두고 이 4개만 먼저 정렬시킨다(§5).
+MinerU 에도 같은 단계가 있는 것은 우연이 아니라 **구조적 필연**이며,
+우리 압축이 더 세다(2.0배 vs 1.7배 — §2.3 표).
 
 단 ViT 가 **완전 생짜는 아니다** — Qwen3-VL 안에서 이미 멀티모달 정렬을 거쳤다.
 Stage 0 이 1,111스텝(~1h)만에 정렬되고 Stage 1A 가 loss 0.2대에서 출발한 것이 그 증거다.
 
-### 2.2 계보별 구조 비교 — LLaVA 에서 우리까지
+### 2.2 interleaved M-RoPE — 위치를 3축으로 준다
 
-§1 의 계보 표가 "누구에게서 무엇을 받았나"라면, 여기는 **같은 항목이 계보를 따라 어떻게
-변했나**다. 바뀐 것은 대부분 **"문서를 읽기 위해" 필요해서 추가된 것**이며, 순수 LLaVA
+문서는 1차원이 아니다. 표의 한 셀은 "몇 번째 토큰"이 아니라 **몇 행 몇 열**에 있고,
+좌표를 텍스트로 생성하려면 모델이 그 2차원 위치를 알아야 한다. M-RoPE 는 위치를
+**(시간 t, 높이 h, 너비 w) 세 축**으로 주는 RoPE 변형이다.
+
+**위치를 매기는 규칙** ([get_rope_index](../../pierrot/models/pierrotocrvlm/modeling/pierrotocrvlm.py)):
+
+| 구간 | t · h · w |
+|---|---|
+| 텍스트 | 세 축이 **같은 값**으로 1씩 증가 → 1D RoPE 와 동치 |
+| 이미지 | 격자 좌표를 그대로 (t, h/m, w/m) |
+| 이미지 다음 텍스트 | `max(h, w)/m` 만큼 진행한 위치에서 이어받는다 |
+
+마지막 줄이 요점이다. 이미지가 "위치를 얼마나 차지하는가"를 격자의 긴 변으로 정해,
+그림 뒤 문장이 그림 속 토큰과 위치가 겹치지 않게 한다.
+
+**interleaved 가 무엇인가.** head_dim 절반(64)의 주파수 슬롯을 세 축에 나눠 주는데,
+나누는 **방식**이 두 가지다.
+
+```python
+# pierrot/models/pierrotocrvlm/modeling/text.py — PierrotOCRTextRotaryEmbedding._combine_axes
+if not self.interleaved:                       # chunked (Qwen2-VL 방식)
+    ...                                        # [T T … T][H H … H][W W … W] 로 구간을 통째로 분할
+combined = freqs[0].clone()                    # interleaved: 기본은 전부 T 축
+for axis, offset in enumerate((1, 2), start=1):    # H, W 만 3칸 간격으로 덮어쓴다
+    idx = slice(offset, self.mrope_section[axis] * 3, 3)
+    combined[..., idx] = freqs[axis, ..., idx]
+```
+
+`mrope_section = [24, 20, 20]`(합 64 = head_dim/2)을 chunked 로 쓰면 **H·W 가 특정
+주파수 대역에만 몰린다.** interleaved 는 `[T H W T H W …]` 로 3칸 간격 교차 배치라
+**세 축이 고주파부터 저주파까지 고르게 걸친다** — 뒤쪽 저주파(장거리) 슬롯은 전부
+T 가 가져가 주파수 연속성도 유지된다.
+
+**그래서 얻은 것.** 텍스트 전용 입력에서는 세 축 위치가 같아 어느 방식이든 **1D RoPE
+와 수치적으로 일치**해야 하는데, 이 성질이 이식의 안전장치다 — Qwen3-0.6B 의 1D RoPE
+를 M-RoPE 로 갈아 끼우고도 사전학습 언어능력이 보존됐음을 로짓으로 확인했다
+(공식 HF 대비 **max abs diff 1.06e-04**, §8).
+
+Qwen3-0.6B 의 `head_dim` 이 128 로 Qwen3-VL 과 같아 `[24, 20, 20]` 배분을 그대로 쓸 수
+있었다. 다른 디코더로 바꾸면 합이 `head_dim/2` 와 어긋나는데, 로더가 그 자리에서
+예외를 던지도록 해 뒀다(조용히 잘못된 배분으로 학습되는 것을 막는다).
+
+### 2.3 다른 SOTA 모델과의 구조 비교
+
+§1 의 계보 표가 "누구에게서 무엇을 받았나"라면, 여기는 **같은 항목을 모델별로 나란히**
+놓은 것이다. 바뀐 것은 대부분 **"문서를 읽기 위해" 필요해서 추가된 것**이며, 순수 LLaVA
 구성으로는 문서 OCR 이 성립하지 않는다.
 
 | 항목 | LLaVA (2023) | Qwen2-VL → Qwen3-VL | MinerU2.5 | **PierrotOCRVLM** |
 |---|---|---|---|---|
 | 비전 인코더 | CLIP ViT-L/14 (대조학습) | NaViT 32층 h1280 → **24층 h1024** | Qwen2-VL NaViT 32층 h1280 | **Qwen3-VL 24층 h1024** |
+| 눈 / 뇌 파라미터 | ~304M / 7B~13B | 306M / 1.7B (2B판) | 631M / 494M | **306M / 596M** |
+| ViT 가 맞춰진 hidden → 붙인 디코더 | CLIP 은 언어 짝 없음 | 자기 짝(정합 완료) | 1536 → 896 (**1.7배** 압축) | **2048 → 1024** (**2.0배**) |
 | 패치 / 유효단위 | 14 / 14px | 14 → **16** / 28 → **32px** | 14 / 28px | **16 / 32px** |
 | 입력 해상도 | **336² 고정 정사각** | 동적, 종횡비 유지 | 레이아웃 **1036² 고정** + 인식 동적 | **전부 동적** |
 | 이미지 토큰 수 | **576개 고정** | 가변 | 레이아웃 **1,369개 고정** | 가변(레이아웃 1024 / 인식 2048 예산) |
-| 커넥터 | MLP 2층 | PatchMerger 1개 → **main + DeepStack 3** | PatchMerger **1개** | **머저 4개** |
+| 커넥터 | MLP 2층 | PatchMerger 1개 → **main + DeepStack 3** | PatchMerger **1개** | **PatchMerger 4개** |
 | 토큰 병합 | 없음 | 2×2 (1/4) | 2×2 | 2×2 |
 | 위치 인코딩 | 1D RoPE | sectioned → **interleaved M-RoPE** | sectioned M-RoPE [8,12,12] | **interleaved M-RoPE** |
 | 중간층 feature | 안 씀 | 안 씀 → **DeepStack 5/11/17** | **안 씀** | **DeepStack 5/11/17** |
@@ -110,18 +185,17 @@ Stage 0 이 1,111스텝(~1h)만에 정렬되고 Stage 1A 가 loss 0.2대에서 �
 | 증강 | 없음 | — | 공간·배경·색상·열화 | **v2 부터 도입**(태스크별 강도) |
 | 대화 | 멀티턴 | 멀티턴 | 단일 턴 | **단일 턴** (VQA 를 붙이려면 여기가 제약) |
 | 규모 | 7B / 13B | 2B~72B | 1.16B | **0.986B** |
-| **스크래치 부분** | MLP projector | (사전학습 완제품) | PatchMerger 31M = **2.7%** | 머저 4개 83.9M = **8.5%** |
+| **스크래치 부분** | MLP projector | (사전학습 완제품) | PatchMerger 31M = **2.7%** | PatchMerger 4개 83.9M = **8.5%** |
 
 **핵심 3개만 꼽으면 ① 동적 해상도 ② M-RoPE ③ 2×2 토큰 병합**이다(전부 Qwen-VL 계열 기여).
 이 셋이 없으면 "페이지를 넣고 좌표와 글자를 받는다"가 물리적으로 안 된다.
 **MinerU 가 얹은 것은 태스크 설계**(프롬프트 전환·coarse-to-fine·OTSL)이고,
 **우리가 얹은 것은 DeepStack·규약 3분리·태스크별 해상도 예산**이다.
 
-부품 배분도 다르다 — MinerU 대비 **눈은 절반**(306M/24층 vs 631M/32층)이고
-**뇌는 더 크다**(596M/28층 vs 494M/24층). 눈을 줄이고 뇌를 키운 배분이며,
-줄어든 눈을 중간층 feature 로 메우려는 것이 DeepStack 이다(§2.3).
+배분에서도 우리만 방향이 다르다 — **눈을 줄이고 뇌를 키웠다.**
+줄어든 눈을 중간층 feature 로 메우려는 것이 DeepStack 이다(§2.4).
 
-### 2.3 왜 DeepStack 인가
+### 2.4 왜 DeepStack 인가
 
 MinerU 재현의 필수 요소가 **아니다** — 제거 가능한 아키텍처 변수로 넣었다.
 
@@ -129,12 +203,11 @@ MinerU 재현의 필수 요소가 **아니다** — 제거 가능한 아키텍�
    획·표 경계·수식 기호가 약해질 위험을 중간층으로 메운다.
 2. **부품 정합** — 이식하는 Qwen3-VL ViT 가 원래 DeepStack 과 함께 설계됐다.
 3. **context 증가 없음** — 이미지 토큰 수를 늘리지 않고 기존 위치에 residual 로 더한다.
-   출력층 zero-init 으로 학습 시작 시 주입이 정확히 no-op 이다.
 
 계획했던 ablation(A 없음 / B 1개 / C 3개 / D gated)은 **아직 돌리지 않았다.**
 "DeepStack ON 이 OFF 를 재현성 있게 이기지 못하면 제거한다"는 기준은 그대로 유효하다.
 
-### 2.4 해상도 규약
+### 2.5 해상도 규약
 
 | 패스 | 예산 | 이미지 토큰 |
 |---|---|---|
@@ -296,13 +369,13 @@ HTML 대비 토큰이 절반 가까이 줄고 태그 미폐합이 **문법적으
 
 ## 5. 학습 방법
 
-완전 직렬화는 금지다(catastrophic forgetting). **사전학습 부품 사이에 완전 랜덤인 머저가
+완전 직렬화는 금지다(catastrophic forgetting). **사전학습 부품 사이에 완전 랜덤인 PatchMerger 가
 끼어 있으므로 랜덤 부분부터 순서대로 깨워야** 잡음 gradient 가 부품을 망치지 않는다.
 
 | 단계 | 학습 대상 | 데이터 | 목적 |
 |---|---|---|---|
-| **Stage 0** | **머저 4개만** (ViT·LM 동결) | 정렬 58만 (범용 캡션 30만 + OCR 정렬 28만) | 랜덤 머저 정렬 |
-| **Stage 1A** | 전체 해제 (모듈별 LR: 머저 기준, ViT/LM ×0.1) | 인식 213만 ×2ep | 텍스트·수식·표 인식 |
+| **Stage 0** | **PatchMerger 4개만** (ViT·LM 동결) | 정렬 58만 (범용 캡션 30만 + OCR 정렬 28만) | 랜덤 PatchMerger 정렬 |
+| **Stage 1A** | 전체 해제 (모듈별 LR: PatchMerger 기준, ViT/LM ×0.1) | 인식 213만 ×2ep | 텍스트·수식·표 인식 |
 | **Stage 1B** | 전체 | 인식 70~80% + **레이아웃 20~30% 조기 혼합** | 레이아웃 조기 도입 — 늦으면 forgetting |
 | **Stage 2** | 전체 | 레이아웃 확대 + 인식 replay | coarse-to-fine 1단계 완성 |
 | **Stage 3** | 전체 | hard-case SFT | 자주 틀리는 유형 보정 |

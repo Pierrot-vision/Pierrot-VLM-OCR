@@ -205,7 +205,7 @@ Pierrot_VLM_OCR/
     └── models/pierrotocrvlm/   # 알고리즘 패키지 (추론 경로만)
         ├── config.py           #   PierrotOCRConfig / Text / Vision (HF config.json 과 1:1)
         ├── modeling/
-        │   ├── vision.py       #     동적해상도 ViT + bilinear 위치보간 + 패치머저 + DeepStack
+        │   ├── vision.py       #     동적해상도 ViT + bilinear 위치보간 + PatchMerger + DeepStack
         │   ├── text.py         #     Qwen3 디코더 (RMSNorm+M-RoPE+QK-Norm+GQA+SwiGLU, +KVCache)
         │   └── pierrotocrvlm.py#     병합(masked_scatter) + M-RoPE 위치 + generate(사이클/n-gram 차단)
         ├── processor.py        #   동적해상도 패치화(smart_resize) + ChatML 프롬프트 인코딩
@@ -225,7 +225,7 @@ Pierrot_VLM_OCR/
 
 | 절 | 내용 |
 |---|---|
-| [1 개요](LAB/pierrotocrvlm/pierrotocrvlm.md#1-개요) · [2 아키텍처](LAB/pierrotocrvlm/pierrotocrvlm.md#2-아키텍처) | MinerU2.5 골격에서 무엇을 바꿨나 · 기술 계보 · 머저 4개가 최대 리스크인 이유 |
+| [1 개요](LAB/pierrotocrvlm/pierrotocrvlm.md#1-개요) · [2 아키텍처](LAB/pierrotocrvlm/pierrotocrvlm.md#2-아키텍처) | MinerU2.5 골격에서 무엇을 바꿨나 · 기술 계보 · PatchMerger 4개가 최대 리스크인 이유 |
 | [3 태스크](LAB/pierrotocrvlm/pierrotocrvlm.md#3-태스크-설계) · [4 추론](LAB/pierrotocrvlm/pierrotocrvlm.md#4-추론-파이프라인) | 프롬프트 = 태스크 스위치 · 검출 규약 3분리 · OTSL · 조립 +11.81p · 밴드 재검출 |
 | [5 학습](LAB/pierrotocrvlm/pierrotocrvlm.md#5-학습-방법) · [6 데이터](LAB/pierrotocrvlm/pierrotocrvlm.md#6-데이터) | Stage 0~3 커리큘럼 · **배합은 토큰으로** · 데이터에서 배운 것과 사고 3건 |
 | [7 실험](LAB/pierrotocrvlm/pierrotocrvlm.md#7-실험-기록) · [8 성능](LAB/pierrotocrvlm/pierrotocrvlm.md#8-성능) | v1 → v2 → v3 → 3연패 → 티처 증류 → V3.5/3.6 · 리더보드 대조 |

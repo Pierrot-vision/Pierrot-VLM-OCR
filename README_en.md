@@ -207,7 +207,7 @@ Pierrot_VLM_OCR/
     └── models/pierrotocrvlm/   # algorithm package (inference paths only)
         ├── config.py           #   PierrotOCRConfig / Text / Vision (1:1 with HF config.json)
         ├── modeling/
-        │   ├── vision.py       #     dynamic-resolution ViT + bilinear pos interpolation + patch merger + DeepStack
+        │   ├── vision.py       #     dynamic-resolution ViT + bilinear pos interpolation + PatchMerger + DeepStack
         │   ├── text.py         #     Qwen3 decoder (RMSNorm + M-RoPE + QK-Norm + GQA + SwiGLU, + KVCache)
         │   └── pierrotocrvlm.py#     merge (masked_scatter) + M-RoPE positions + generate (cycle / n-gram guards)
         ├── processor.py        #   dynamic-resolution patching (smart_resize) + ChatML prompt encoding
@@ -227,7 +227,7 @@ defects** are in there too — those were the most expensive part of this projec
 
 | Section | Content |
 |---|---|
-| 1 Overview · 2 Architecture | What changed from the MinerU2.5 skeleton · lineage · why the 4 mergers were the biggest risk |
+| 1 Overview · 2 Architecture | What changed from the MinerU2.5 skeleton · lineage · why the 4 PatchMergers were the biggest risk |
 | 3 Tasks · 4 Inference | Prompt = task switch · three detection conventions · OTSL · assembly +11.81p · band re-detection |
 | 5 Training · 6 Data | Stage 0–3 curriculum · **blend by tokens, not records** · data lessons and 3 incidents |
 | 7 Experiments · 8 Performance | v1 → v2 → v3 → three straight losses → teacher distillation → V3.5/3.6 · leaderboard comparison |
