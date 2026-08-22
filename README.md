@@ -57,9 +57,6 @@
 
 ## 🎬 데모
 
-3패널 재생 뷰어([tools/make_demo_viewer.py](tools/make_demo_viewer.py))로 캡처한 실제 파싱 과정입니다 —
-왼쪽 원본 + 레이아웃 박스, 가운데 모델 원시 출력, 오른쪽 재조판 결과.
-
 **2단 조판 학술 논문**
 
 ![2단 조판 논문 파싱 데모](https://github.com/Pierrot-vision/Pierrot-VLM-OCR/releases/download/v0.1.0/demo_paper.gif)

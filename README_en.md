@@ -58,10 +58,6 @@ Feed it a page image and it goes **layout → region recognition → assembly**,
 
 ## 🎬 Demo
 
-Real parsing runs captured from the 3-panel replay viewer
-([tools/make_demo_viewer.py](tools/make_demo_viewer.py)) — page + layout boxes on the left,
-raw model output in the middle, reflowed result on the right.
-
 **Two-column academic paper**
 
 ![two-column paper parsing demo](https://github.com/Pierrot-vision/Pierrot-VLM-OCR/releases/download/v0.1.0/demo_paper.gif)
