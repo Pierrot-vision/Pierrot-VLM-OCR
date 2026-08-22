@@ -46,41 +46,7 @@ get within its resources, and failures and mismeasurements are written down as-i
 
 ## 📰 News
 
-- 2026-08-22 — 🩹 **Band re-detection** — inference-path fix only, no retraining: body text +1.87p over 849 pages (3-axis **71.80**)
-- 2026-08-20 — 🧩 **Assembly fix (body-fill)** — body text +11.81p with zero training
-- 2026-08-20 — 🎓 **V3.4t teacher distillation** — tables and body text improved together
-- 2026-08-13 — 🟠 **v3 training finished** — KDoc 51 pages 62.4 (tables 35.3)
-- 2026-08-04 — 🚀 **First PierrotOCRVLM assembly** — hybrid transplant gates passed (0.986B)
-
----
-
-## 🧩 Model at a glance
-
-| | **PierrotOCRVLM** |
-|---|---|
-| Purpose | Document parsing (layout · text · tables · formulas · whole-page reading) |
-| Algorithmic skeleton | MinerU2.5 — single checkpoint, prompt-switched coarse-to-fine |
-| Vision encoder | Dynamic-resolution ViT, 24 layers + **DeepStack** (5/11/17) — transplanted from Qwen3-VL-2B |
-| Language model | Qwen3-0.6B, 28 layers (RMSNorm · QK-Norm · GQA 16/8 · SwiGLU), transplanted |
-| Projector | **4 patch mergers** (1 main + 3 DeepStack, output 1024) — newly trained |
-| Positional encoding | **M-RoPE** interleaved `[24, 20, 20]` (head_dim 128) |
-| Sequence | ChatML + `<\|vision_start\|><\|image_pad\|>×N<\|vision_end\|>` — **no tiling** |
-| Attention mask | Plain causal |
-| Parameters | **0.986B** = ViT 306.2M + mergers 83.9M + decoder 596.0M (embed tie) |
-| Weight memory | ~2 GB (bf16) |
-| Image tokens | Dynamic — recognition ≤2,048 / layout ≤1,024 (`max_pixels`/1024) |
-| Output | Coordinates, tables, and formulas are **all generated as text** (no OCR head) |
-
-> **Why this combination** — vision and language come from proven pretrained parts, and
-> only the **4 mergers** that bridge them are trained from scratch (modular
-> initialization). The ViT outputs 2048 while the decoder hidden size is 1024, so the
-> mergers cannot be reused; that randomly-initialized boundary was the main risk of the
-> initial training. The loader zero-inits the DeepStack merger output layers so the
-> injection starts as a no-op.
-
-**Architecture**
-
-![PierrotOCRVLM architecture](docs/architecture/pierrotocrvlm-architecture.png)
+- 2026-08-22 — 🚀 **Inference code released**
 
 ---
 
