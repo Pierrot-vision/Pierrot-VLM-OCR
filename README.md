@@ -65,11 +65,6 @@
 
 ![공공 보고서 파싱 데모](https://github.com/Pierrot-vision/Pierrot-VLM-OCR/releases/download/v0.1.0/demo_kdi.gif)
 
-> 재생 순서는 우리가 정한 것이고, 좌표와 내용은 모델이 낸 값 그대로입니다 —
-> 이 모델은 1패스 인터리브가 아니라 coarse-to-fine 2패스라 중앙 스트림은
-> **두 패스의 실제 출력을 읽기순서로 엮은 것**입니다.
-> (각 28~32MB 라 로딩에 시간이 걸립니다.)
-
 ---
 
 ## 📦 설치

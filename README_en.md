@@ -66,11 +66,6 @@ Feed it a page image and it goes **layout → region recognition → assembly**,
 
 ![public-sector report parsing demo](https://github.com/Pierrot-vision/Pierrot-VLM-OCR/releases/download/v0.1.0/demo_kdi.gif)
 
-> The replay order is ours; the coordinates and text are exactly what the model produced.
-> This is a coarse-to-fine two-pass model, not a single-pass interleaved one, so the middle
-> stream is **the actual output of both passes woven into reading order**.
-> (28–32 MB each, so they take a moment to load.)
-
 ---
 
 ## 📦 Installation
