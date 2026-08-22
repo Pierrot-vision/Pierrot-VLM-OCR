@@ -31,6 +31,10 @@
 페이지 이미지 한 장을 넣으면 **레이아웃 → 영역 인식 → 조립** 을 거쳐
 **Markdown / JSON** 이 나옵니다.
 
+**최소한의 크기로 최대 성능을 내는 것**이 목적입니다 — **0.986B** 한 대가
+레이아웃 검출부터 텍스트·표·수식 인식까지 전 과정을 처리합니다.
+부품 선정과 구조 설계가 전부 이 제약에서 나왔습니다.
+
 > ⚠️ **추론 전용입니다.** 학습 엔트리포인트(`training/`) · 하이퍼파라미터(`args/`) ·
 > 학습 엔진(`pierrot/core`) · 데이터 빌더 · 데이터셋 어댑터는 **들어 있지 않습니다.**
 > 모델 코드는 학습 저장소와 같은 구현이고 학습 전용 경로만 제거했으므로 체크포인트는 그대로 호환됩니다.
@@ -39,21 +43,21 @@
 
 ## 📰 News
 
-- 2026-08-22 — 🏆 **KDoc-OCRBench-V2 2위** — 상업용 모델을 빼면 **1위** (3축 평균 71.80)
+- 2026-08-22 — 🏆 **[KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2) 2위** — 상업용 모델을 빼면 **1위**, 본문(Long Text)은 **전체 1위** (3축 평균 71.86)
 - 2026-08-22 — 🚀 **추론 코드 공개**
 
 ---
 
-## 📊 성능 — KDoc-OCRBench-V2 (849쪽 전량)
+## 📊 성능 — [KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2) (849쪽 전량)
 
-| 순위 | 모델 | Header/Footer | Long Text | Table | 3축 평균 |
-|---:|---|---:|---:|---:|---:|
-| 1 | BizOnAI-OCR *(상업용)* | 94.7 | **77.9** | **58.1** | **76.9** |
-| **2** | **Ours** | 96.09 | 76.61 | 42.70 | 71.80 |
-| 3 | PaddleOCR-VL | 95.6 | 66.2 | 48.9 | 70.2 |
-| 4 | DeepSeek OCR | 95.8 | 64.5 | 46.6 | 69.0 |
-| 5 | olmOCR v0.2.0 | 95.2 | 65.0 | 44.9 | 68.4 |
-| 6 | GLM-4.1V-OCR | **97.4** | 52.9 | 30.0 | 60.1 |
+| 순위 | 모델 | 크기 | Header/Footer | Long Text | Table | 3축 평균 |
+|---:|---|---:|---:|---:|---:|---:|
+| 1 | BizOnAI-OCR *(상업용)* | 비공개 | 94.70 | 77.90 | **58.10** | **76.90** |
+| **2** | **Ours** | **0.99B** | 93.43 | **78.04** | 44.10 | 71.86 |
+| 3 | PaddleOCR-VL | 0.9B | 95.60 | 66.20 | 48.90 | 70.20 |
+| 4 | DeepSeek OCR | ~3B *(MoE, 활성 0.57B)* | 95.80 | 64.50 | 46.60 | 69.00 |
+| 5 | olmOCR v0.2.0 | 7B | 95.20 | 65.00 | 44.90 | 68.40 |
+| 6 | GLM-4.1V-OCR | 9B | **97.40** | 52.90 | 30.00 | 60.10 |
 
 ---
 
@@ -120,7 +124,7 @@ python infer/infer_pierrotocrvlm.py --model ./outputs/pierrotocrvlm_v3/final \
 ### 여러 장 배치 — `benchmark/run_pages.py`
 
 ```bash
-# 벤치마크 최고점 경로(849쪽 3축 71.80 을 낸 조합)
+# 벤치마크 최고점 경로(849쪽 3축 71.86 을 낸 조합)
 python benchmark/run_pages.py --model ./outputs/pierrotocrvlm_v3/final \
     --images "/path/pages/*.jpg" --out results/md \
     --mode hybrid-page --body-fill --relayout-bands
@@ -242,7 +246,7 @@ Pierrot_VLM_OCR/
 
 관련 논문 정리 · 리뷰 → [Pierrot-vision/Reading-Papers — VLM](https://github.com/Pierrot-vision/Reading-Papers#-vlm)
 
-- **KDoc-OCRBench-V2** · **OmniDocBench** · **CC-OCR** — 평가 벤치마크
+- **[KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2)** · **OmniDocBench** · **CC-OCR** — 평가 벤치마크
 
 ---
 

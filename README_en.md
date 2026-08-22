@@ -31,6 +31,10 @@ document-parsing model trained in [PIERROT VLM](https://github.com/Pierrot-visio
 Feed it a page image and it goes **layout → region recognition → assembly**, producing
 **Markdown / JSON**.
 
+**The goal is maximum performance at minimum size** — a single **0.986B** model covers the
+whole pipeline, from layout detection to text, table, and formula recognition.
+Every choice of parts and structure follows from that constraint.
+
 > ⚠️ **Inference only.** Training entrypoints (`training/`), hyperparameters (`args/`),
 > the training engine (`pierrot/core`), data builders, and dataset adapters are **not
 > included.** The model code is the same implementation as in the training repository with
@@ -40,21 +44,21 @@ Feed it a page image and it goes **layout → region recognition → assembly**,
 
 ## 📰 News
 
-- 2026-08-22 — 🏆 **2nd on KDoc-OCRBench-V2** — **1st** excluding commercial models (3-axis mean 71.80)
+- 2026-08-22 — 🏆 **2nd on [KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2)** — **1st** excluding commercial models, and **1st overall on Long Text** (3-axis mean 71.86)
 - 2026-08-22 — 🚀 **Inference code released**
 
 ---
 
-## 📊 Performance — KDoc-OCRBench-V2 (all 849 pages)
+## 📊 Performance — [KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2) (all 849 pages)
 
-| Rank | Model | Header/Footer | Long Text | Table | 3-axis mean |
-|---:|---|---:|---:|---:|---:|
-| 1 | BizOnAI-OCR *(commercial)* | 94.7 | **77.9** | **58.1** | **76.9** |
-| **2** | **Ours** | 96.09 | 76.61 | 42.70 | 71.80 |
-| 3 | PaddleOCR-VL | 95.6 | 66.2 | 48.9 | 70.2 |
-| 4 | DeepSeek OCR | 95.8 | 64.5 | 46.6 | 69.0 |
-| 5 | olmOCR v0.2.0 | 95.2 | 65.0 | 44.9 | 68.4 |
-| 6 | GLM-4.1V-OCR | **97.4** | 52.9 | 30.0 | 60.1 |
+| Rank | Model | Size | Header/Footer | Long Text | Table | 3-axis mean |
+|---:|---|---:|---:|---:|---:|---:|
+| 1 | BizOnAI-OCR *(commercial)* | undisclosed | 94.70 | 77.90 | **58.10** | **76.90** |
+| **2** | **Ours** | **0.99B** | 93.43 | **78.04** | 44.10 | 71.86 |
+| 3 | PaddleOCR-VL | 0.9B | 95.60 | 66.20 | 48.90 | 70.20 |
+| 4 | DeepSeek OCR | ~3B *(MoE, 0.57B active)* | 95.80 | 64.50 | 46.60 | 69.00 |
+| 5 | olmOCR v0.2.0 | 7B | 95.20 | 65.00 | 44.90 | 68.40 |
+| 6 | GLM-4.1V-OCR | 9B | **97.40** | 52.90 | 30.00 | 60.10 |
 
 ---
 
@@ -121,7 +125,7 @@ text) · `<stem>_layout.jpg` (with `--save-viz`).
 ### Many pages — `benchmark/run_pages.py`
 
 ```bash
-# the best benchmark path (the combination that produced 71.80 over 849 pages)
+# the best benchmark path (the combination that produced 71.86 over 849 pages)
 python benchmark/run_pages.py --model ./outputs/pierrotocrvlm_v3/final \
     --images "/path/pages/*.jpg" --out results/md \
     --mode hybrid-page --body-fill --relayout-bands
@@ -244,7 +248,7 @@ Where the document mentions `args/`, `training/`, or `tools/build_*`, it refers 
 
 Paper notes and reviews → [Pierrot-vision/Reading-Papers — VLM](https://github.com/Pierrot-vision/Reading-Papers#-vlm)
 
-- **KDoc-OCRBench-V2** · **OmniDocBench** · **CC-OCR** — evaluation benchmarks
+- **[KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2)** · **OmniDocBench** · **CC-OCR** — evaluation benchmarks
 
 ---
 
