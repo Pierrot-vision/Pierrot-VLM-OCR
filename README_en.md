@@ -31,14 +31,14 @@ document-parsing model trained in [PIERROT VLM](https://github.com/Pierrot-visio
 Feed it a page image and it goes **layout → region recognition → assembly**, producing
 **Markdown / JSON**.
 
-**The goal is maximum performance at minimum size** — a single **0.986B** model covers the
-whole pipeline, from layout detection to text, table, and formula recognition.
-Every choice of parts and structure follows from that constraint.
+**The goal is maximum performance at minimum size**, because the resources available for
+training and inference are limited and GPU cost matters when it actually runs —
+a single **0.986B** model covers the whole pipeline, from layout detection to text, table,
+and formula recognition.
 
-> ⚠️ **Inference only.** Training entrypoints (`training/`), hyperparameters (`args/`),
-> the training engine (`pierrot/core`), data builders, and dataset adapters are **not
-> included.** The model code is the same implementation as in the training repository with
-> only the training paths removed, so checkpoints stay compatible.
+> **Origin of the name** — Pierrot is originally a pantomime clown character who **mimics and
+> imitates others**. It resonates with [Pierrot Universe](https://github.com/Pierrot-vision)'s first
+> philosophy (MimiC) — following and combining the good parts of existing research — which is why we use this name.
 
 * The training code and trained weights are not publicly released at this time.
 
