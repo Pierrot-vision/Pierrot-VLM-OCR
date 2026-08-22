@@ -33,7 +33,7 @@
 
 > ⚠️ **추론 전용입니다.** 학습 엔트리포인트(`training/`) · 하이퍼파라미터(`args/`) ·
 > 학습 엔진(`pierrot/core`) · 데이터 빌더 · 데이터셋 어댑터는 **들어 있지 않습니다.**
-> 학습은 원본 저장소에서 합니다 → [이 배포본에 없는 것](#-이-배포본에-없는-것)
+> 모델 코드는 학습 저장소와 같은 구현이고 학습 전용 경로만 제거했으므로 체크포인트는 그대로 호환됩니다.
 
 모델은 순수 PyTorch 스크래치 구현이고, 알고리즘 골격은 **MinerU2.5** 를 따릅니다 —
 태스크별 헤드가 하나도 없고 **체크포인트 하나가 프롬프트만 바꿔** 레이아웃 검출과
@@ -252,31 +252,10 @@ Pierrot_VLM_OCR/
 
 ---
 
-## 🚫 이 배포본에 없는 것
-
-| 없는 것 | 어디에 있나 |
-|---|---|
-| 학습 엔트리포인트 `training/train_pierrotocrvlm.py` | 학습 저장소 |
-| 하이퍼파라미터 단일 소스 `args/pierrotocrvlm.py` | 〃 |
-| Accelerate 학습 엔진 `pierrot/core` (Trainer · 스케줄러 · 레지스트리) | 〃 |
-| 데이터셋 어댑터 · collate · 증강 (`dataset.py` · `pierrot/data`) | 〃 |
-| 데이터 빌더 `tools/build_*_jsonl.py` (30여 개) | 〃 |
-| 부품 이식 조립 `weights.load_hybrid()` (학습 시작점) | 〃 |
-| val 셋 평가 하네스 `eval/eval_pierrotocrvlm.py` | 〃 |
-
-모델 코드(`config` · `modeling` · `processor` · `weights`)는 학습 저장소와 **같은 구현**이며,
-손실 계산 · 활성화 체크포인팅 · 옵티마이저 파라미터 그룹 · 라벨 생성 등
-**학습에서만 쓰는 경로만** 제거했습니다. 체크포인트 호환성은 그대로입니다.
-
----
-
 ## 📚 참조 (Reference)
 
 관련 논문 정리 · 리뷰 → [Pierrot-vision/Reading-Papers — VLM](https://github.com/Pierrot-vision/Reading-Papers#-vlm)
 
-- **MinerU2.5** — coarse-to-fine 2단계 문서 파싱 골격
-- **Qwen3-VL** / **Qwen3** — 비전 타워 · 언어 디코더 부품
-- **OTSL** — 표 구조 직렬화
 - **KDoc-OCRBench-V2** · **OmniDocBench** · **CC-OCR** — 평가 벤치마크
 
 ---

@@ -33,8 +33,8 @@ Feed it a page image and it goes **layout → region recognition → assembly**,
 
 > ⚠️ **Inference only.** Training entrypoints (`training/`), hyperparameters (`args/`),
 > the training engine (`pierrot/core`), data builders, and dataset adapters are **not
-> included.** Training lives in the original repository →
-> [What is not here](#-what-is-not-here)
+> included.** The model code is the same implementation as in the training repository with
+> only the training paths removed, so checkpoints stay compatible.
 
 The model is a pure-PyTorch from-scratch implementation, and the algorithmic skeleton
 follows **MinerU2.5** — there is no task-specific head at all; **a single checkpoint
@@ -257,32 +257,10 @@ Where the document mentions `args/`, `training/`, or `tools/build_*`, it refers 
 
 ---
 
-## 🚫 What is not here
-
-| Missing | Where it lives |
-|---|---|
-| Training entrypoint `training/train_pierrotocrvlm.py` | Training repository |
-| Hyperparameter single source `args/pierrotocrvlm.py` | ditto |
-| Accelerate training engine `pierrot/core` (Trainer, scheduler, registry) | ditto |
-| Dataset adapters, collate, augmentation (`dataset.py`, `pierrot/data`) | ditto |
-| Data builders `tools/build_*_jsonl.py` (30-odd files) | ditto |
-| Part-transplant assembly `weights.load_hybrid()` (the training starting point) | ditto |
-| Val-set evaluation harness `eval/eval_pierrotocrvlm.py` | ditto |
-
-The model code (`config`, `modeling`, `processor`, `weights`) is the **same
-implementation** as in the training repository; only training-only paths were removed —
-loss computation, activation checkpointing, optimizer parameter groups, and label
-construction. Checkpoint compatibility is unchanged.
-
----
-
 ## 📚 Reference
 
 Paper notes and reviews → [Pierrot-vision/Reading-Papers — VLM](https://github.com/Pierrot-vision/Reading-Papers#-vlm)
 
-- **MinerU2.5** — the coarse-to-fine two-pass document parsing skeleton
-- **Qwen3-VL** / **Qwen3** — vision tower and language decoder parts
-- **OTSL** — table structure serialization
 - **KDoc-OCRBench-V2** · **OmniDocBench** · **CC-OCR** — evaluation benchmarks
 
 ---
