@@ -1,0 +1,9 @@
+# PierrotOCRVLM 추론 전용 의존성 (학습 의존은 없다 — accelerate 등 불필요)
+torch>=2.1.0
+transformers>=4.44.0      # 토크나이저 로드 전용(모델 구현은 스크래치라 버전 제약 없음)
+safetensors>=0.4.0
+huggingface_hub>=0.24.0
+pillow>=10.0.0
+numpy>=1.24.0
+# 데모 뷰어 GIF 녹화(tools/record_demo_gif.py · tools/compare_modes.py)에만 필요 — 선택
+# playwright>=1.40.0
