@@ -168,7 +168,7 @@
 > ⚠️ **직접 비교가 아닙니다.** 우리 값은 **공백무시** 채점, 외부는 **정식** 채점이라
 > 우리 쪽이 유리한 자입니다(50쪽 실측: PaddleOCR-VL 정식 53.71 → 공백무시 59.11).
 > 공백무시를 기본으로 쓰는 이유는 학습셋 일부가 표 셀의 공백을 잃은 채로 들어갔기
-> 때문이며, 그 경위는 [성능업데이트](LAB/pierrotocrvlm/성능업데이트.md) 에 있습니다.
+> 때문이며, 그 경위는 [실험 노트 §8](LAB/pierrotocrvlm/pierrotocrvlm.md#8-성능) 에 있습니다.
 
 본문은 1위와 **1.3p** 차까지 좁혔고, **남은 격차는 표 하나**입니다(42.70 vs 58.1).
 2 · 3 · 7위의 차이는 **재학습이 아니라 추론·조립 경로 수정만으로** 얻은 것입니다
@@ -339,7 +339,7 @@ Pierrot_VLM_OCR/
 │   ├── compare_modes.py        # 두 모드 결과 나란히 비교 이미지
 │   └── record_demo_gif.py      # 뷰어 → 데모 GIF 녹화 (playwright 필요)
 ├── requirements.txt
-├── LAB/pierrotocrvlm/          # 실험 노트 — 설계·데이터·성능·실패 기록 (아래 참조)
+├── LAB/pierrotocrvlm/          # 실험 노트 1편 — 설계·학습·실험·결과·실패 (아래 참조)
 ├── docs/                       # 아키텍처 그림 · LAB 그림 · 배너
 └── pierrot/
     └── models/pierrotocrvlm/   # 알고리즘 패키지 (추론 경로만)
@@ -357,19 +357,22 @@ Pierrot_VLM_OCR/
 
 ## 🧪 실험 노트 (LAB)
 
-설계·데이터·성능·**실패**를 그대로 적어 둔 기록입니다. 원본 저장소에서 가져온
-그대로라 일부 링크는 **학습 저장소의 파일**(`args/` · `training/` · `tools/build_*`)을
-가리킵니다 — 이 배포본에는 없는 파일들입니다.
+설계·학습 방법·실험·결과를 **한 문서**에 정리해 두었습니다 —
+[**LAB/pierrotocrvlm/pierrotocrvlm.md**](LAB/pierrotocrvlm/pierrotocrvlm.md).
 
-| 문서 | 내용 |
+성공한 것만 적지 않았습니다. **기각된 가설 15개**와 **계측 결함 13건**이 함께 들어 있고,
+이 프로젝트에서 가장 비쌌던 것이 그쪽입니다.
+
+| 절 | 내용 |
 |---|---|
-| [plan.md](LAB/pierrotocrvlm/plan.md) | 설계 확정본 — 부품 선정 · 검증 게이트 · v1→v3 학습 단계 전체 |
-| [성능업데이트.md](LAB/pierrotocrvlm/성능업데이트.md) | KDoc 벤치 성능 추적 15절 — 실패 분해 · 계측 결함 12건 · 추론 레버 A/B |
-| [Datasets.md](LAB/pierrotocrvlm/Datasets.md) | 데이터셋 전수 목록 · 배합 · 제외 사유 |
-| [V3.4.md](LAB/pierrotocrvlm/V3.4.md) · [V3.5.md](LAB/pierrotocrvlm/V3.5.md) · [V3.6.md](LAB/pierrotocrvlm/V3.6.md) | 판별 실험 — 티처 증류 · 장문 조립 · 규모 축 |
-| [research/unlimited-ocr.md](LAB/pierrotocrvlm/research/unlimited-ocr.md) | 외부 연구(Unlimited-OCR) 리뷰와 우리 경로 대조 |
+| [1 개요](LAB/pierrotocrvlm/pierrotocrvlm.md#1-개요) · [2 아키텍처](LAB/pierrotocrvlm/pierrotocrvlm.md#2-아키텍처) | MinerU2.5 골격에서 무엇을 바꿨나 · 기술 계보 · 머저 4개가 최대 리스크인 이유 |
+| [3 태스크](LAB/pierrotocrvlm/pierrotocrvlm.md#3-태스크-설계) · [4 추론](LAB/pierrotocrvlm/pierrotocrvlm.md#4-추론-파이프라인) | 프롬프트 = 태스크 스위치 · 검출 규약 3분리 · OTSL · 조립 +11.81p · 밴드 재검출 |
+| [5 학습](LAB/pierrotocrvlm/pierrotocrvlm.md#5-학습-방법) · [6 데이터](LAB/pierrotocrvlm/pierrotocrvlm.md#6-데이터) | Stage 0~3 커리큘럼 · **배합은 토큰으로** · 데이터에서 배운 것과 사고 3건 |
+| [7 실험](LAB/pierrotocrvlm/pierrotocrvlm.md#7-실험-기록) · [8 성능](LAB/pierrotocrvlm/pierrotocrvlm.md#8-성능) | v1 → v2 → v3 → 3연패 → 티처 증류 → V3.5/3.6 · 리더보드 대조 |
+| [9 기각된 가설](LAB/pierrotocrvlm/pierrotocrvlm.md#9-기각된-가설) · [10 계측 결함](LAB/pierrotocrvlm/pierrotocrvlm.md#10-계측-결함-13건) · [11 남은 병목](LAB/pierrotocrvlm/pierrotocrvlm.md#11-남은-병목) | 다시 하지 말 것 · 도구부터 의심할 것 · 단계별 생존 분해 |
 
-읽는 순서는 `plan.md` → `성능업데이트.md` 를 권합니다.
+문서에서 `args/` · `training/` · `tools/build_*` 를 언급하는 대목은 **학습 저장소**를
+가리킵니다 — 이 배포본에는 없는 파일들입니다.
 
 ---
 

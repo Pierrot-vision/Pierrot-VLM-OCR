@@ -175,7 +175,7 @@ A Korean document benchmark. Shown in **the same table** as the official leaderb
 > external ones are **official**, which favors us (measured on 50 pages: PaddleOCR-VL
 > official 53.71 → space-insensitive 59.11). We default to space-insensitive because part
 > of the training set lost table-cell spacing; the full account is in
-> [성능업데이트.md](LAB/pierrotocrvlm/성능업데이트.md).
+> [the LAB note §8](LAB/pierrotocrvlm/pierrotocrvlm.md#8-성능).
 
 Body text is now within **1.3p** of first place, and **the remaining gap is tables alone**
 (42.70 vs 58.1). The difference between ranks 2, 3 and 7 came **purely from inference and
@@ -350,7 +350,7 @@ Pierrot_VLM_OCR/
 │   ├── compare_modes.py        # side-by-side comparison image for two modes
 │   └── record_demo_gif.py      # viewer → demo GIF recording (needs playwright)
 ├── requirements.txt
-├── LAB/pierrotocrvlm/          # lab notes — design, data, performance, failures (see below)
+├── LAB/pierrotocrvlm/          # one lab note — design, training, experiments, results, failures
 ├── docs/                       # architecture figure, LAB figures, banner
 └── pierrot/
     └── models/pierrotocrvlm/   # algorithm package (inference paths only)
@@ -368,20 +368,22 @@ Pierrot_VLM_OCR/
 
 ## 🧪 LAB notes
 
-Design, data, performance, and **failures**, written down as they happened. They are
-copied verbatim from the original repository, so some links point at **files in the
-training repository** (`args/`, `training/`, `tools/build_*`) that do not exist here.
-The notes are written in Korean.
+Design, training method, experiments, and results are consolidated into **one document**:
+[**LAB/pierrotocrvlm/pierrotocrvlm.md**](LAB/pierrotocrvlm/pierrotocrvlm.md) (written in Korean).
 
-| Document | Content |
+It does not record only what worked. **15 rejected hypotheses** and **13 measurement
+defects** are in there too — those were the most expensive part of this project.
+
+| Section | Content |
 |---|---|
-| [plan.md](LAB/pierrotocrvlm/plan.md) | Finalized design — part selection, verification gates, the full v1→v3 training program |
-| [성능업데이트.md](LAB/pierrotocrvlm/성능업데이트.md) | 15 sections of KDoc benchmark tracking — failure decomposition, 12 measurement defects, inference-lever A/Bs |
-| [Datasets.md](LAB/pierrotocrvlm/Datasets.md) | Full dataset inventory, blend ratios, exclusion rationale |
-| [V3.4.md](LAB/pierrotocrvlm/V3.4.md) · [V3.5.md](LAB/pierrotocrvlm/V3.5.md) · [V3.6.md](LAB/pierrotocrvlm/V3.6.md) | Discriminating experiments — teacher distillation, long-text assembly, the scale axis |
-| [research/unlimited-ocr.md](LAB/pierrotocrvlm/research/unlimited-ocr.md) | Review of external work (Unlimited-OCR) against our path |
+| 1 Overview · 2 Architecture | What changed from the MinerU2.5 skeleton · lineage · why the 4 mergers were the biggest risk |
+| 3 Tasks · 4 Inference | Prompt = task switch · three detection conventions · OTSL · assembly +11.81p · band re-detection |
+| 5 Training · 6 Data | Stage 0–3 curriculum · **blend by tokens, not records** · data lessons and 3 incidents |
+| 7 Experiments · 8 Performance | v1 → v2 → v3 → three straight losses → teacher distillation → V3.5/3.6 · leaderboard comparison |
+| 9 Rejected hypotheses · 10 Measurement defects · 11 Remaining bottlenecks | What not to retry · suspect the instrument first · stage-by-stage survival |
 
-Recommended reading order: `plan.md` → `성능업데이트.md`.
+Where the document mentions `args/`, `training/`, or `tools/build_*`, it refers to the
+**training repository** — those files are not in this distribution.
 
 ---
 
