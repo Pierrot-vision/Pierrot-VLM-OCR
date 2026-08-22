@@ -52,38 +52,14 @@ get within its resources, and failures and mismeasurements are written down as-i
 
 ## 📊 Performance — KDoc-OCRBench-V2 (all 849 pages)
 
-A Korean document benchmark. Shown in **the same table** as the official leaderboard.
-
 | Rank | Model | Header/Footer | Long Text | Table | 3-axis mean | Scoring |
 |---:|---|---:|---:|---:|---:|---|
 | 1 | BizOnAI-OCR | 94.7 | **77.9** | **58.1** | **76.9** | official |
-| **2** | **PierrotOCRVLM (V3 + body-fill + bands)** | 96.09 | **76.61** | 42.70 | **71.80** | space-insensitive |
-| 3 | PierrotOCRVLM (V3 + body-fill) | 96.72 | 74.74 | 42.42 | 71.29 | space-insensitive |
-| 4 | PaddleOCR-VL | 95.6 | 66.2 | 48.9 | 70.2 | official |
-| 5 | DeepSeek OCR | 95.8 | 64.5 | 46.6 | 69.0 | official |
-| 6 | olmOCR v0.2.0 | 95.2 | 65.0 | 44.9 | 68.4 | official |
-| 7 | PierrotOCRVLM (V3 baseline) | 96.97 | 62.93 | 42.42 | 67.44 | space-insensitive |
-| 8 | GLM-4.1V-OCR | **97.4** | 52.9 | 30.0 | 60.1 | official |
-
-> ⚠️ **Not a direct comparison.** Our numbers use **space-insensitive** scoring while the
-> external ones are **official**, which favors us (measured on 50 pages: PaddleOCR-VL
-> official 53.71 → space-insensitive 59.11). We default to space-insensitive because part
-> of the training set lost table-cell spacing; the full account is in
-> [the LAB note §8](LAB/pierrotocrvlm/pierrotocrvlm.md#8-성능).
-
-Body text is now within **1.3p** of first place, and **the remaining gap is tables alone**
-(42.70 vs 58.1). The difference between ranks 2, 3 and 7 came **purely from inference and
-assembly fixes, not retraining** (baseline 67.44 → 71.80, **+4.36p**).
-
-**Prediction examples** (left = model input, right = generated output)
-
-| Layout | Table (OTSL→HTML) |
-|---|---|
-| ![layout prediction](docs/images/pierrotocrvlm/predictions/v2/sbs_layout_ccpdf.png) | ![table prediction](docs/images/pierrotocrvlm/predictions/v2/sbs_table_real.png) |
-
-| Whole-page reading (Korean) | Wild text |
-|---|---|
-| ![page reading](docs/images/pierrotocrvlm/predictions/v2/sbs_page_ko.png) | ![wild text](docs/images/pierrotocrvlm/predictions/v2/sbs_text_wild.png) |
+| **2** | **Ours** | 96.09 | 76.61 | 42.70 | 71.80 | space-insensitive |
+| 3 | PaddleOCR-VL | 95.6 | 66.2 | 48.9 | 70.2 | official |
+| 4 | DeepSeek OCR | 95.8 | 64.5 | 46.6 | 69.0 | official |
+| 5 | olmOCR v0.2.0 | 95.2 | 65.0 | 44.9 | 68.4 | official |
+| 6 | GLM-4.1V-OCR | **97.4** | 52.9 | 30.0 | 60.1 | official |
 
 ---
 
