@@ -26,14 +26,13 @@
 
 ## 💡 소개
 
-**PIERROT VLM · OCR** 은 [PIERROT VLM](https://github.com/Pierrot-vision/Pierrot-VLM) 에서
-학습한 문서 파싱 모델 **PierrotOCRVLM** 을 **돌리기 위한 부분만** 떼어낸 배포본입니다.
-페이지 이미지 한 장을 넣으면 **레이아웃 → 영역 인식 → 조립** 을 거쳐
-**Markdown / JSON** 이 나옵니다.
-
+**PIERROT VLM · OCR** 은 VLM 기반 이미지 문자 인식을 위한 프로젝트입니다. 이는 단순히
+문자 인식뿐만 아니라 Document 블럭 감지, 일반 이미지의 감지를 포함합니다. 또한,
 **최소한의 크기로 최대 성능을 내는 것**이 목적입니다. 학습·추론에 쓸 수 있는 자원이
 한정돼 있고, 실제로 돌릴 때의 GPU 비용도 아껴야 하기 때문입니다 —
 **0.986B** 한 대가 레이아웃 검출부터 텍스트·표·수식 인식까지 전 과정을 처리합니다.
+
+입력은 페이지 이미지 한 장, 출력은 **Markdown / JSON** 입니다.
 
 > **이름의 유래** — 피에로(Pierrot)는 원래 무언극에서 **남을 따라 하고 흉내 내는** 광대
 > 캐릭터입니다. 기존 연구의 좋은 점을 따라 재현·결합한다는 [Pierrot Universe](https://github.com/Pierrot-vision)

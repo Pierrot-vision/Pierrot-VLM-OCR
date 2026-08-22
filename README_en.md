@@ -26,15 +26,14 @@
 
 ## 💡 Introduction
 
-**PIERROT VLM · OCR** carves out only the parts needed to **run** **PierrotOCRVLM**, the
-document-parsing model trained in [PIERROT VLM](https://github.com/Pierrot-vision/Pierrot-VLM).
-Feed it a page image and it goes **layout → region recognition → assembly**, producing
-**Markdown / JSON**.
+**PIERROT VLM · OCR** is a project for VLM-based text recognition in images. It covers not
+just character recognition but also document block detection and detection in ordinary
+photographs. **The goal is maximum performance at minimum size**, because the resources
+available for training and inference are limited and GPU cost matters when it actually
+runs — a single **0.986B** model covers the whole pipeline, from layout detection to text,
+table, and formula recognition.
 
-**The goal is maximum performance at minimum size**, because the resources available for
-training and inference are limited and GPU cost matters when it actually runs —
-a single **0.986B** model covers the whole pipeline, from layout detection to text, table,
-and formula recognition.
+Input is one page image; output is **Markdown / JSON**.
 
 > **Origin of the name** — Pierrot is originally a pantomime clown character who **mimics and
 > imitates others**. It resonates with [Pierrot Universe](https://github.com/Pierrot-vision)'s first
