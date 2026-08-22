@@ -38,6 +38,7 @@ Feed it a page image and it goes **layout → region recognition → assembly**,
 
 ## 📰 News
 
+- 2026-08-22 — 🏆 **2nd on KDoc-OCRBench-V2** — **1st** excluding commercial models (3-axis mean 71.80)
 - 2026-08-22 — 🚀 **Inference code released**
 
 ---
