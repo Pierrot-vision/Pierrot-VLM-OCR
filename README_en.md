@@ -28,10 +28,11 @@
 
 **PIERROT VLM · OCR** is a project for VLM-based text recognition in images. It covers not
 just character recognition but also document block detection and detection in ordinary
-photographs. **The goal is maximum performance at minimum size**, because the resources
-available for training and inference are limited and GPU cost matters when it actually
-runs — a single **0.986B** model covers the whole pipeline, from layout detection to text,
-table, and formula recognition.
+photographs. **The goal is maximum performance at minimum size.** GPU resources were tight even in
+development, and inference cost matters once it actually runs. Above all, having a
+**smaller model deliver bigger performance** is the goal itself — so this project settled
+on **0.986B**, and that single model covers the whole pipeline, from layout detection to
+text, table, and formula recognition.
 
 Input is one page image; output is **Markdown / JSON**.
 
