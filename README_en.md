@@ -46,7 +46,7 @@ Input is one page image; output is **Markdown / JSON**.
 
 ## 📰 News
 
-- 2026-08-23 — 📈 **V3.6** — 3-axis mean **72.93** (**+1.07p** over V3.5's 71.86) · Long Text **79.98** (+1.94p) · Table **45.12** (+1.02p) · Header/Footer **93.69** (+0.26p). Still 2nd overall and 1st on Long Text
+- 2026-08-24 — 📈 **V3.6** — 3-axis mean **72.93** (**+1.07p** over V3.5's 71.86) · Long Text **79.98** (+1.94p) · Table **45.12** (+1.02p) · Header/Footer **93.69** (+0.26p). Still 2nd overall and 1st on Long Text
 - 2026-08-22 — 🏆 **2nd on [KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2)** — **1st** excluding commercial models, and **1st overall on Long Text** (3-axis mean 71.86)
 - 2026-08-22 — 🚀 **Inference code released**
 
