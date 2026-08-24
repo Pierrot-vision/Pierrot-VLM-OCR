@@ -46,6 +46,7 @@ Input is one page image; output is **Markdown / JSON**.
 
 ## 📰 News
 
+- 2026-08-23 — 📈 **V3.6** — 3-axis mean **72.93** (**+1.07p** over V3.5's 71.86) · Long Text **79.98** (+1.94p) · Table **45.12** (+1.02p) · Header/Footer **93.69** (+0.26p). Still 2nd overall and 1st on Long Text
 - 2026-08-22 — 🏆 **2nd on [KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2)** — **1st** excluding commercial models, and **1st overall on Long Text** (3-axis mean 71.86)
 - 2026-08-22 — 🚀 **Inference code released**
 
@@ -56,7 +57,7 @@ Input is one page image; output is **Markdown / JSON**.
 | Rank | Model | Size | Header/Footer | Long Text | Table | 3-axis mean |
 |---:|---|---:|---:|---:|---:|---:|
 | 1 | BizOnAI-OCR *(commercial)* | undisclosed | 94.70 | 77.90 | **58.10** | **76.90** |
-| **2** | **Ours** | **0.99B** | 93.43 | **78.04** | 44.10 | 71.86 |
+| **2** | **Ours** | **0.99B** | 93.69 | **79.98** | 45.12 | 72.93 |
 | 3 | PaddleOCR-VL | 0.9B | 95.60 | 66.20 | 48.90 | 70.20 |
 | 4 | DeepSeek OCR | ~3B *(MoE, 0.57B active)* | 95.80 | 64.50 | 46.60 | 69.00 |
 | 5 | olmOCR v0.2.0 | 7B | 95.20 | 65.00 | 44.90 | 68.40 |
