@@ -5,7 +5,7 @@
 <h1 align="center">📄 PIERROT VLM · OCR</h1>
 
 <p align="center">
-  <b>A from-scratch PyTorch document-parsing VLM — PierrotOCRVLM inference distribution</b>
+  <b>A PyTorch-based VLM-OCR framework — PierrotOCRVLM inference distribution</b>
 </p>
 
 <p align="center">
@@ -128,7 +128,7 @@ text) · `<stem>_layout.jpg` (with `--save-viz`).
 ### Many pages — `benchmark/run_pages.py`
 
 ```bash
-# the best benchmark path (the combination that produced 71.86 over 849 pages)
+# the best benchmark path (the combination that produced 73.41 over 849 pages)
 python benchmark/run_pages.py --model ./outputs/pierrotocrvlm_v3/final \
     --images "/path/pages/*.jpg" --out results/md \
     --mode hybrid-page --body-fill --relayout-bands

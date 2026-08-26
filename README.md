@@ -5,7 +5,7 @@
 <h1 align="center">📄 PIERROT VLM · OCR</h1>
 
 <p align="center">
-  <b>PyTorch 스크래치 문서 파싱 VLM — PierrotOCRVLM 추론 배포본</b>
+  <b>PyTorch 기반 VLM-OCR 프레임워크 — PierrotOCRVLM 추론 배포본</b>
 </p>
 
 <p align="center">
@@ -127,7 +127,7 @@ python infer/infer_pierrotocrvlm.py --model ./outputs/pierrotocrvlm_v3/final \
 ### 여러 장 배치 — `benchmark/run_pages.py`
 
 ```bash
-# 벤치마크 최고점 경로(849쪽 3축 71.86 을 낸 조합)
+# 벤치마크 최고점 경로(849쪽 3축 73.41 을 낸 조합)
 python benchmark/run_pages.py --model ./outputs/pierrotocrvlm_v3/final \
     --images "/path/pages/*.jpg" --out results/md \
     --mode hybrid-page --body-fill --relayout-bands
