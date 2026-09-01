@@ -46,6 +46,7 @@ Input is one page image; output is **Markdown / JSON**.
 
 ## 📰 News
 
+- 2026-09-01 — 📈 **V3.8** — 3-axis mean **73.74**, our **best yet** (**+0.26p** over V3.7's 73.48) · Table **48.84** (+0.83p) · Header/Footer **95.96** (+0.76p). The adopted checkpoint is **`checkpoint-10500`**, not `final`. Long Text slips another 1.31p to 76.41 — the same table-for-body trade as V3.7
 - 2026-08-28 — 📈 **V3.7** — 3-axis mean **73.48**, our **best yet** (**+1.62p** over V3.5's 71.86) · Table **48.01** (+3.91p) · Header/Footer **95.20** (+1.77p). The table gain carries the 3-axis mean up. Long Text drops 1.31p to 77.23, below BizOnAI (77.90) — still 2nd overall
 - 2026-08-24 — 📈 **V3.6** — 3-axis mean **73.41** (**+1.55p** over V3.5's 71.86) · **all three axes up** — Table **46.60** (+2.50p) · Header/Footer **95.08** (+1.65p) · Long Text **78.54** (+0.50p). Still 2nd overall and 1st on Long Text
 - 2026-08-22 — 🏆 **2nd on [KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2)** — **1st** excluding commercial models, and **1st overall on Long Text** (3-axis mean 71.86)
@@ -58,7 +59,7 @@ Input is one page image; output is **Markdown / JSON**.
 | Rank | Model | Size | Header/Footer | Long Text | Table | 3-axis mean |
 |---:|---|---:|---:|---:|---:|---:|
 | 1 | BizOnAI-OCR *(commercial)* | undisclosed | 94.70 | 77.90 | **58.10** | **76.90** |
-| **2** | **Ours** | **0.99B** | 95.20 | 77.23 | 48.01 | 73.48 |
+| **2** | **Ours** | **0.99B** | 95.96 | 76.41 | 48.84 | 73.74 |
 | 3 | PaddleOCR-VL | 0.9B | 95.60 | 66.20 | 48.90 | 70.20 |
 | 4 | DeepSeek OCR | ~3B *(MoE, 0.57B active)* | 95.80 | 64.50 | 46.60 | 69.00 |
 | 5 | olmOCR v0.2.0 | 7B | 95.20 | 65.00 | 44.90 | 68.40 |
@@ -129,7 +130,7 @@ text) · `<stem>_layout.jpg` (with `--save-viz`).
 ### Many pages — `benchmark/run_pages.py`
 
 ```bash
-# the best benchmark path (the combination that produced 73.41 over 849 pages)
+# the best benchmark path (the combination that produced 73.74 over 849 pages)
 python benchmark/run_pages.py --model ./outputs/pierrotocrvlm_v3/final \
     --images "/path/pages/*.jpg" --out results/md \
     --mode hybrid-page --body-fill --relayout-bands
