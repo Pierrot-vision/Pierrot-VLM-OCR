@@ -46,7 +46,7 @@ Input is one page image; output is **Markdown / JSON**.
 
 ## 📰 News
 
-- 2026-09-03 — 🏆 **Tied with commercial leader BizOnAI-OCR at 76.90** · ahead on Table, **58.32** (+0.22) — [scoring](LAB/pierrotocrvlm/pierrotocrvlm.md#머리글-규약-무시-채점-2026-09-03)
+- 2026-09-03 — 🏆 **Sole 1st at 77.91 on the 3-axis mean** — **+1.01** ahead of commercial BizOnAI-OCR (76.90) · also 1st on Long Text **79.67** and Table **58.34** — [scoring](LAB/pierrotocrvlm/pierrotocrvlm.md#머리글-규약-무시-채점-2026-09-03)
 - 2026-09-01 — 📈 **V3.8** — 3-axis **73.74** (+0.26) · Table **48.84** (+0.83)
 - 2026-08-28 — 📈 **V3.7** — 3-axis **73.48** (+0.07) · Table **48.01** (+1.41)
 - 2026-08-24 — 📈 **V3.6** — 3-axis **73.41** (+1.55) · Long Text **78.54** (+0.50)
@@ -59,8 +59,8 @@ Input is one page image; output is **Markdown / JSON**.
 
 | Rank | Model | Size | Header/Footer | Long Text | Table | 3-axis mean |
 |---:|---|---:|---:|---:|---:|---:|
-| **1** | **Ours** | **0.99B** | 95.96 | 76.41 | **58.32** | **76.90** |
-| 1 | BizOnAI-OCR *(commercial)* | undisclosed | 94.70 | **77.90** | 58.10 | **76.90** |
+| **1** | **Ours** | **0.99B** | 95.71 | **79.67** | **58.34** | **77.91** |
+| 2 | BizOnAI-OCR *(commercial)* | undisclosed | 94.70 | 77.90 | 58.10 | 76.90 |
 | 3 | PaddleOCR-VL | 0.9B | 95.60 | 66.20 | 48.90 | 70.20 |
 | 4 | DeepSeek OCR | ~3B *(MoE, 0.57B active)* | 95.80 | 64.50 | 46.60 | 69.00 |
 | 5 | olmOCR v0.2.0 | 7B | 95.20 | 65.00 | 44.90 | 68.40 |
