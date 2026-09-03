@@ -45,10 +45,10 @@
 
 ## 📰 News
 
-- 2026-09-03 — 🏆 **상용 1위 BizOnAI-OCR 과 3축 동률 76.90** · 표 **58.32** 로 역전 — [채점 기준](LAB/pierrotocrvlm/pierrotocrvlm.md#머리글-규약-무시-채점-2026-09-03)
-- 2026-09-01 — 📈 **V3.8** — 3축 73.74 · 표 48.84 (공백무시)
-- 2026-08-28 — 📈 **V3.7** — 3축 73.48 · 표 48.01 (공백무시)
-- 2026-08-24 — 📈 **V3.6** — 3축 73.41 · 본문 78.54 (공백무시)
+- 2026-09-03 — 🏆 **상용 1위 BizOnAI-OCR 과 3축 동률 76.90** · 표 **58.32** 로 역전(+0.22) — [채점 기준](LAB/pierrotocrvlm/pierrotocrvlm.md#머리글-규약-무시-채점-2026-09-03)
+- 2026-09-01 — 📈 **V3.8** — 3축 **73.74** (+0.26) · 표 **48.84** (+0.83)
+- 2026-08-28 — 📈 **V3.7** — 3축 **73.48** (+0.07) · 표 **48.01** (+1.41)
+- 2026-08-24 — 📈 **V3.6** — 3축 **73.41** (+1.55) · 본문 **78.54** (+0.50)
 - 2026-08-22 — 🏆 **[KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2) 2위** — 3축 71.86
 - 2026-08-22 — 🚀 **추론 코드 공개**
 
@@ -232,7 +232,7 @@ Pierrot_VLM_OCR/
 설계·학습 방법·실험·결과를 **한 문서**에 정리해 두었습니다 —
 [**LAB/pierrotocrvlm/pierrotocrvlm.md**](LAB/pierrotocrvlm/pierrotocrvlm.md).
 
-성공한 것만 적지 않았습니다. **기각된 가설 15개**와 **계측 결함 13건**이 함께 들어 있고,
+성공한 것만 적지 않았습니다. **기각된 가설 15개**와 **계측 결함 14건**이 함께 들어 있고,
 이 프로젝트에서 가장 비쌌던 것이 그쪽입니다.
 
 | 절 | 내용 |
@@ -241,7 +241,7 @@ Pierrot_VLM_OCR/
 | [3 태스크](LAB/pierrotocrvlm/pierrotocrvlm.md#3-태스크-설계) · [4 추론](LAB/pierrotocrvlm/pierrotocrvlm.md#4-추론-파이프라인) | 프롬프트 = 태스크 스위치 · 검출 규약 3분리 · OTSL · 조립 +11.81p · 밴드 재검출 |
 | [5 학습](LAB/pierrotocrvlm/pierrotocrvlm.md#5-학습-방법) · [6 데이터](LAB/pierrotocrvlm/pierrotocrvlm.md#6-데이터) | Stage 0~3 커리큘럼 · **배합은 토큰으로** · 데이터에서 배운 것과 사고 3건 |
 | [7 실험](LAB/pierrotocrvlm/pierrotocrvlm.md#7-실험-기록) · [8 성능](LAB/pierrotocrvlm/pierrotocrvlm.md#8-성능) | v1 → v2 → v3 → 3연패 → 티처 증류 → V3.5/3.6 · 리더보드 대조 |
-| [9 기각된 가설](LAB/pierrotocrvlm/pierrotocrvlm.md#9-기각된-가설) · [10 계측 결함](LAB/pierrotocrvlm/pierrotocrvlm.md#10-계측-결함-13건) · [11 남은 병목](LAB/pierrotocrvlm/pierrotocrvlm.md#11-남은-병목) | 다시 하지 말 것 · 도구부터 의심할 것 · 단계별 생존 분해 |
+| [9 기각된 가설](LAB/pierrotocrvlm/pierrotocrvlm.md#9-기각된-가설) · [10 계측 결함](LAB/pierrotocrvlm/pierrotocrvlm.md#10-계측-결함-14건) · [11 남은 병목](LAB/pierrotocrvlm/pierrotocrvlm.md#11-남은-병목) | 다시 하지 말 것 · 도구부터 의심할 것 · 단계별 생존 분해 |
 
 문서에서 `args/` · `training/` · `tools/build_*` 를 언급하는 대목은 **학습 저장소**를
 가리킵니다 — 이 배포본에는 없는 파일들입니다.

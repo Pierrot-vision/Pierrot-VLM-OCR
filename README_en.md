@@ -46,10 +46,10 @@ Input is one page image; output is **Markdown / JSON**.
 
 ## 📰 News
 
-- 2026-09-03 — 🏆 **Tied with commercial leader BizOnAI-OCR at 76.90** · ahead on Table, **58.32** — [scoring](LAB/pierrotocrvlm/pierrotocrvlm.md#머리글-규약-무시-채점-2026-09-03)
-- 2026-09-01 — 📈 **V3.8** — 3-axis 73.74 · Table 48.84 (whitespace-insensitive)
-- 2026-08-28 — 📈 **V3.7** — 3-axis 73.48 · Table 48.01 (whitespace-insensitive)
-- 2026-08-24 — 📈 **V3.6** — 3-axis 73.41 · Long Text 78.54 (whitespace-insensitive)
+- 2026-09-03 — 🏆 **Tied with commercial leader BizOnAI-OCR at 76.90** · ahead on Table, **58.32** (+0.22) — [scoring](LAB/pierrotocrvlm/pierrotocrvlm.md#머리글-규약-무시-채점-2026-09-03)
+- 2026-09-01 — 📈 **V3.8** — 3-axis **73.74** (+0.26) · Table **48.84** (+0.83)
+- 2026-08-28 — 📈 **V3.7** — 3-axis **73.48** (+0.07) · Table **48.01** (+1.41)
+- 2026-08-24 — 📈 **V3.6** — 3-axis **73.41** (+1.55) · Long Text **78.54** (+0.50)
 - 2026-08-22 — 🏆 **2nd on [KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2)** — 3-axis 71.86
 - 2026-08-22 — 🚀 **Inference code released**
 
@@ -234,7 +234,7 @@ Pierrot_VLM_OCR/
 Design, training method, experiments, and results are consolidated into **one document**:
 [**LAB/pierrotocrvlm/pierrotocrvlm.md**](LAB/pierrotocrvlm/pierrotocrvlm.md) (written in Korean).
 
-It does not record only what worked. **15 rejected hypotheses** and **13 measurement
+It does not record only what worked. **15 rejected hypotheses** and **14 measurement
 defects** are in there too — those were the most expensive part of this project.
 
 | Section | Content |
