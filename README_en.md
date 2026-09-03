@@ -66,9 +66,6 @@ Input is one page image; output is **Markdown / JSON**.
 | 5 | olmOCR v0.2.0 | 7B | 95.20 | 65.00 | 44.90 | 68.40 |
 | 6 | GLM-4.1V-OCR | 9B | **97.40** | 52.90 | 30.00 | 60.10 |
 
-> Ours ignores whitespace and header conventions; the external numbers use official
-> scoring — rationale and limits in the [lab note](LAB/pierrotocrvlm/pierrotocrvlm.md#머리글-규약-무시-채점-2026-09-03).
-
 ---
 
 ## 🎬 Demo
