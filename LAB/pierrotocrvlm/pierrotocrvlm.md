@@ -1337,58 +1337,49 @@ A/B 물량으로만 썼다.
 
 **사례 1 — 태그 절대차 65 (빈 칸·세로 병합 누락)**
 
-![사례 1 — 태그 절대차 65 (빈 칸·세로 병합 누락)](../../docs/images/pierrotocrvlm/gt-vs-pred/case1-shifted.jpg)
+원본 이미지
 
-<table>
-<tr><th align="left">정답 (GT)</th><th align="left">우리 출력 (V3.8 s10500)</th></tr>
-<tr><td valign="top">
+![사례 1 — 태그 절대차 65 (빈 칸·세로 병합 누락) 원본](../../docs/images/pierrotocrvlm/gt-vs-pred/case1-shifted.jpg)
 
-<table><tr><th rowspan="2">구분</th><th rowspan="2">표준품</th><th rowspan="2">체계개발비표준품</th><th>양산/운용단계</th></tr><tr><td>비표준품</td></tr><tr><th>제도명(가칭)</th><td>표준부품인증제도</td><td>감항인증제도(기구축제도)</td><td>부품제작자인증제도</td></tr><tr><th>인증방안</th><td>제품이표준 규격을 만족함을확인</td><td>체계인증에포함해서 체계와동시인증</td><td>원제작사제품과 동등 이상이며,장착될 체계 장비의인증기준에 적합함을 확인</td></tr><tr><th>인증품목</th><td>부품류는국내외 표 준인증품 그대로 인정하고,주요 구성품위주로 인증</td><td>체계인증시 부품목 록에포함되어 있는 모든 부품</td><td>주요안전품목또는 체계감항성에영향을 주는품목</td></tr><tr><th rowspan="3">확인대상</th><td rowspan="3">제품 성능/형상,제작자품질시스템</td><td>제품성능/형상,</td><td>제품성능/형상,</td></tr><tr><td>체계장비감항기준 적합성,</td><td rowspan="2">체계장비감항기준 적합성,제작자품질시스템</td></tr><tr><td>제작자품질시스템</td></tr><tr><th>인증시점</th><td>인증신청 시</td><td>체계개발단계</td><td>양산/운용단계</td></tr><tr><th>인증당국</th><td rowspan="2">방위사업청,(부품인증전문기관)</td><td>방위사업청</td><td>방위사업청</td></tr><tr><th>(위임기관)</th><td>(감항인증전문기관)</td><td>(부품인증전문기관)</td></tr><tr><th rowspan="9">입찰참여자격</th><td rowspan="9">표준부품인증을받은제작자</td><td></td><td>·부품제작자인증을</td></tr><tr><td></td><td>받은제작사</td></tr><tr><td></td><td>·주장비의주계약자</td></tr><tr><td></td><td>·인증받은 주장비에</td></tr><tr><td></td><td>포함된부품을</td></tr><tr><td></td><td>공급하는원제작사</td></tr><tr><td></td><td>·주계약자나</td></tr><tr><td></td><td>원제작사로부터</td></tr><tr><td></td><td>완전면허생산을허가받은제작자</td></tr><tr><th rowspan="2">기타</th><td rowspan="2"></td><td></td><td>-부품개발 승인 시 인증당국이인증</td></tr><tr><td>CSI품목식별필요</td><td>대상품목으로지정 -역설계타당성 검토 필요</td></tr></table>
+정답 (GT)
 
-</td><td valign="top">
+![사례 1 — 태그 절대차 65 (빈 칸·세로 병합 누락) 정답](../../docs/images/pierrotocrvlm/gt-vs-pred/case1-gt.jpg)
 
-<table><tr><th>구분</th><th>표준품</th><th>체계개발비표준품</th><th>양산/운용단계비표준품</th></tr><tr><th>제도명(가칭)</th><td>표준부품인증제도</td><td>감항인증제도(기구축 제도)</td><td>부품제작자인증제도</td></tr><tr><th>인증방안</th><td>제품이표준 규격을 만족함을확인</td><td>체계인증에포함해서 체계와동시인증</td><td>원제작사제품과 동등 이상이며,장착될 체계 장비의인증기준에 적합함을확인</td></tr><tr><th>인증품목</th><td>부품류는국내외 표 준인증품 그대로 인정하고,주요 구성품위주로 인증</td><td>체계인증시 부품목 록에포함되어 있는 모든부품</td><td>주요안전품목또는 체계감항성에영향을 주는품목</td></tr><tr><th>확인대상</th><td>제품성능/형상, 제작자품질시스템</td><td>제품성능/형상, 체계장비감항기준 적합성,제작자품질시스템</td><td>제품성능/형상, 체계장비감항기준 적합성,제작자품질시스템</td></tr><tr><th>인증시점</th><td>인증신청 시</td><td>체계개발단계</td><td>양산/운용단계</td></tr><tr><th>인증당국(위임기관)</th><td>방위사업청,(부품인증전문기관)</td><td>방위사업청(감항인증전문기관)</td><td>방위사업청(부품인증전문기관)</td></tr><tr><th>입찰참여자격</th><td>표준부품인증을받은제작자</td><td></td><td>·부품제작자인증을받은제작사 ·주장비의주계약자 ·인증받은주장비에 포함된부품을 공급하는원제작사 ·주계약자나원제작사로부터완전면허생산을허가받은제작자</td></tr><tr><th>기타</th><td></td><td>CSI품목식별필요</td><td>-부품개발 승인 시 인증당국이인증 대상품목으로지정 -역설계타당성 검토 필요</td></tr></table>
+우리 출력 (V3.8 s10500)
 
-</td></tr>
-</table>
+![사례 1 — 태그 절대차 65 (빈 칸·세로 병합 누락) 우리 출력](../../docs/images/pierrotocrvlm/gt-vs-pred/case1-pred.jpg)
 
 `<ched> 정답 13 / 예측 12  |  <fcel> 정답 37 / 예측 22  |  <ecel> 정답 11 / 예측 2  |  <lcel> 정답 0 / 예측 0  |  <ucel> 정답 27 / 예측 0  |  <xcel> 정답 0 / 예측 0  |  <nl> 정답 22 / 예측 9`
 
 **사례 2 — 태그 절대차 44 (빈 칸 누락 + 가로 병합 오출력)**
 
-![사례 2 — 태그 절대차 44 (빈 칸 누락 + 가로 병합 오출력)](../../docs/images/pierrotocrvlm/gt-vs-pred/case2-shifted.jpg)
+원본 이미지
 
-<table>
-<tr><th align="left">정답 (GT)</th><th align="left">우리 출력 (V3.8 s10500)</th></tr>
-<tr><td valign="top">
+![사례 2 — 태그 절대차 44 (빈 칸 누락 + 가로 병합 오출력) 원본](../../docs/images/pierrotocrvlm/gt-vs-pred/case2-shifted.jpg)
 
-<table><tr><td></td><th colspan="3">전면개보수</th><th>일부개보수</th><th>적합</th></tr><tr><td></td><th>기존남녀 화장</th><th>각 층에남녀각</th><th>화장실접근은</th><td></td><td></td></tr><tr><td></td><td></td><td>각설치가능 하</td><td>가능하며,화장</td><td>화장실전체</td><td></td></tr><tr><td></td><td>실공간 통합하 여층별 한 개소</td><td>나접근등이 용</td><td>실전체적 공간</td><td>적공간은 적</td><td>편의시설 및 관</td></tr><tr><th>특징</th><td>구조적 보</td><td>이하지않아 접</td><td>은적합하나 내</td><td>합내부 공간</td><td>련기준 모두</td></tr><tr><td></td><td>설치,강및 배관설비 재시공포함 -2층공사포함</td><td>근(출입구등)의 개조및 내부 화 장실배관설비 포함전면개보수</td><td>부공간 재배치 등으로설비공사 포함개보수 필 요</td><td>재배치(칸막 이)배관설비 미시공</td><td>적합장애인의 이용가능</td></tr><tr><td></td><td>·내부비내력벽 철 거후 공간 확보</td><td>·출입구교체(문</td><td>·내부칸막이 재설 치</td><td></td><td></td></tr><tr><th>주요개선사항</th><td>·출입구 교체(문 폭확장 등)·바닥타일 재시공 ·대변기, 세면대, 소변기재시공</td><td>폭확장 등)·바닥타일재시공 ·대변기,세면대, 소변기재시공</td><td>·바닥타일 재시공 ·대변기세면대 소 변기재시공</td><td>·내부칸막이 재설치</td><td></td></tr><tr><th>설치비용검토</th><td>·비내력벽 해체 비용·구조 안전 진단 ·설비시공 등 ·화장실 일반개조 ·출입문확장 등</td><td>·설비시공 등 ·화장실일반개조 ·출입문확장 등</td><td>·설비시공 등·화장실일반개조</td><td>·내부칸막이교체</td><td></td></tr><tr><th>공사비</th><td>T1</td><td>T2</td><td>T3</td><td>T4</td><td>T5</td></tr><tr><th>예상비용</th><td>42,650,000</td><td>37.554.000</td><td>24,629,000</td><td>4,175,000</td><td></td></tr></table>
+정답 (GT)
 
-</td><td valign="top">
+![사례 2 — 태그 절대차 44 (빈 칸 누락 + 가로 병합 오출력) 정답](../../docs/images/pierrotocrvlm/gt-vs-pred/case2-gt.jpg)
 
-<table><tr><td></td><th colspan="3">전면개보수</th><th>일부개보수</th><th>적합</th><td></td></tr><tr><th>특징</th><th colspan="2">기존남녀 화장 실공간 통합하 여층별 한 개소 설치,구조적 보 강 및 배관설비재시공포함 -2층공사포함</th><th>각층에 남녀각 각설치가능 하 나접근등이 용 이하지않아 접 근(출입구등)의 개조및 내부 화 장실배관설비 포함 전면개보수</th><th>화장실접근은 가능하며,화장 실전체적 공간 은적합하나 내 부공간 재배치 등으로설비공사 포함개보수 필 요</th><th>화장실전체 적공간은 적 합내부 공간 재배치(칸막 이)배관설비 미시공</th><th>편의시설 및 관련기준 모두 적합장애인의 이용가능</th></tr><tr><th>주요개선사항</th><td colspan="2">·내부 비내력벽 철 거후 공간 확보 ·출입구교체(문 폭확장 등)·바닥타일재시공 ·대변기,세면대, 소변기재시공</td><td>·출입구교체(문 폭확장등) ·바닥타일재시공 ·대변기,세면대, 소변기재시공</td><td>·내부칸막이 재설 치·바닥타일 재시공 ·대변기세면대 소 변기재시공</td><td>·내부칸막이 재설치</td><td></td></tr><tr><th>설치비용검토</th><td colspan="2">·비내력벽해체 비용·구조안전 진단 ·설비시공 등 ·화장실일반개조 ·출입문확장 등</td><td>·설비시공 등·화장실일반개조 ·출입문확장 등</td><td>·설비시공 등·화장실일반개조</td><td>·내부칸막이 교체</td><td></td></tr><tr><th>공사비</th><td colspan="2">T1</td><td>T2</td><td>T3</td><td>T4</td><td>T5</td></tr><tr><th>예상비용</th><td colspan="2">42,650,000</td><td>37,554,000</td><td>24,629,000</td><td>4,175,000</td><td></td></tr></table>
+우리 출력 (V3.8 s10500)
 
-</td></tr>
-</table>
+![사례 2 — 태그 절대차 44 (빈 칸 누락 + 가로 병합 오출력) 우리 출력](../../docs/images/pierrotocrvlm/gt-vs-pred/case2-pred.jpg)
 
 `<ched> 정답 11 / 예측 13  |  <fcel> 정답 38 / 예측 17  |  <ecel> 정답 15 / 예측 4  |  <lcel> 정답 2 / 예측 7  |  <ucel> 정답 0 / 예측 0  |  <xcel> 정답 0 / 예측 0  |  <nl> 정답 11 / 예측 6`
 
 **사례 3 — 태그 절대차 0 (완전 일치)**
 
-![사례 3 — 태그 절대차 0 (완전 일치)](../../docs/images/pierrotocrvlm/gt-vs-pred/case3-exact.jpg)
+원본 이미지
 
-<table>
-<tr><th align="left">정답 (GT)</th><th align="left">우리 출력 (V3.8 s10500)</th></tr>
-<tr><td valign="top">
+![사례 3 — 태그 절대차 0 (완전 일치) 원본](../../docs/images/pierrotocrvlm/gt-vs-pred/case3-exact.jpg)
 
-<table><tr><th rowspan="2">구 분</th><th colspan="3">경기도→ 서울시</th><th colspan="3">서울시→ 경기도</th></tr><tr><th>계</th><th>동의(비율)</th><th>부동의(비율)</th><th>계</th><th>동의(비율)</th><th>부동의(비율)</th></tr><tr><th>2003년</th><td>22</td><td>8 (36%)</td><td>14(64%)</td><td>40</td><td>11(28%)</td><td>29(72%)</td></tr><tr><th>2004년</th><td>71</td><td>20(28%)</td><td>51(72%)</td><td>39</td><td>23(59%)</td><td>16(51%)</td></tr><tr><th>2005년</th><td>100</td><td>13(13%)</td><td>87(87%)</td><td>20</td><td>9(45%)</td><td>11(55%)</td></tr><tr><th>2006년</th><td>41</td><td>5(12%)</td><td>36(88%)</td><td>18</td><td>5(28%)</td><td>13(72%)</td></tr><tr><th>2007년</th><td>94</td><td>38(40%)</td><td>56(60%)</td><td>14</td><td>9(64%)</td><td>5(36%)</td></tr><tr><th>2008년</th><td>151</td><td>57(38%)</td><td>94(62%)</td><td>33</td><td>18(55%)</td><td>15(45%)</td></tr><tr><th>2009년</th><td>200</td><td>81(40%)</td><td>119(60%)</td><td>37</td><td>21(57%)</td><td>16(43%)</td></tr><tr><th>2010년</th><td>172</td><td>81(47%)</td><td>91(53%)</td><td>20</td><td>10(50%)</td><td>10(50%)</td></tr></table>
+정답 (GT)
 
-</td><td valign="top">
+![사례 3 — 태그 절대차 0 (완전 일치) 정답](../../docs/images/pierrotocrvlm/gt-vs-pred/case3-gt.jpg)
 
-<table><tr><th rowspan="2">구 분</th><th colspan="3">경기도 서울시</th><th colspan="3">서울시경기도</th></tr><tr><th>계</th><th>동의(비율)</th><th>부동의(비율)</th><th>계</th><th>동의(비율)</th><th>부동의(비율)</th></tr><tr><th>2003년</th><td>22</td><td>8(36%)</td><td>14(64%)</td><td>40</td><td>11(28%)</td><td>29(72%)</td></tr><tr><th>2004년</th><td>71</td><td>20(28%)</td><td>51(72%)</td><td>39</td><td>23(59%)</td><td>16(51%)</td></tr><tr><th>2005년</th><td>100</td><td>13(13%)</td><td>87(87%)</td><td>20</td><td>9(45%)</td><td>11(55%)</td></tr><tr><th>2006년</th><td>41</td><td>5(12%)</td><td>36(88%)</td><td>18</td><td>5(28%)</td><td>13(72%)</td></tr><tr><th>2007년</th><td>94</td><td>38(40%)</td><td>56(60%)</td><td>14</td><td>9(64%)</td><td>5(36%)</td></tr><tr><th>2008년</th><td>151</td><td>57(38%)</td><td>94(62%)</td><td>33</td><td>18(55%)</td><td>15(45%)</td></tr><tr><th>2009년</th><td>200</td><td>81(40%)</td><td>119(60%)</td><td>37</td><td>21(57%)</td><td>16(43%)</td></tr><tr><th>2010년</th><td>172</td><td>81(47%)</td><td>91(53%)</td><td>20</td><td>10(50%)</td><td>10(50%)</td></tr></table>
+우리 출력 (V3.8 s10500)
 
-</td></tr>
-</table>
+![사례 3 — 태그 절대차 0 (완전 일치) 우리 출력](../../docs/images/pierrotocrvlm/gt-vs-pred/case3-pred.jpg)
 
 `<ched> 정답 17 / 예측 17  |  <fcel> 정답 48 / 예측 48  |  <ecel> 정답 0 / 예측 0  |  <lcel> 정답 4 / 예측 4  |  <ucel> 정답 1 / 예측 1  |  <xcel> 정답 0 / 예측 0  |  <nl> 정답 10 / 예측 10`
 
