@@ -252,7 +252,7 @@ Where the document mentions `args/`, `training/`, or `tools/build_*`, it refers 
 
 ## 📚 Reference
 
-Paper notes and reviews → [Pierrot-vision/Reading-Papers — VLM](https://github.com/Pierrot-vision/Reading-Papers#-vlm)
+Paper notes and reviews → [Pierrot-vision/Reading-Papers — VLM-OCR](https://github.com/Pierrot-vision/Reading-Papers#-vlm-ocr)
 
 - **[KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2)** · **OmniDocBench** · **CC-OCR** — evaluation benchmarks
 

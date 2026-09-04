@@ -250,7 +250,7 @@ Pierrot_VLM_OCR/
 
 ## 📚 참조 (Reference)
 
-관련 논문 정리 · 리뷰 → [Pierrot-vision/Reading-Papers — VLM](https://github.com/Pierrot-vision/Reading-Papers#-vlm)
+관련 논문 정리 · 리뷰 → [Pierrot-vision/Reading-Papers — VLM-OCR](https://github.com/Pierrot-vision/Reading-Papers#-vlm-ocr)
 
 - **[KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2)** · **OmniDocBench** · **CC-OCR** — 평가 벤치마크
 
