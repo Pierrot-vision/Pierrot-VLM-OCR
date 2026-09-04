@@ -46,7 +46,7 @@ Input is one page image; output is **Markdown / JSON**.
 
 ## 📰 News
 
-- 2026-09-03 — 🏆 **[KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2) 1st** — 3-axis **77.91** (BizOnAI 76.90) · Long Text **79.67** · Table **58.34** — [scoring](LAB/pierrotocrvlm/pierrotocrvlm.md#학습셋-형식과-평가셋-형식이-다르다--채점-기준을-두-가지로-쓰는-이유)
+- 2026-09-03 — 🏆 **[KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2) 1st** — 3-axis **77.91** (BizOnAI 76.90) · Long Text **79.67** · Table **58.34** — [scoring](LAB/pierrotocrvlm/pierrotocrvlm.md#채점-기준을-두-가지로-쓰는-이유)
 - 2026-09-01 — 📈 **KDoc-OCRBench-V2 V3.8** — 3-axis 73.74 (+0.26) · Table 48.84 (+0.83)
 - 2026-08-28 — 📈 **KDoc-OCRBench-V2 V3.7** — 3-axis 73.48 (+0.07) · Table 48.01 (+1.41)
 - 2026-08-24 — 📈 **KDoc-OCRBench-V2 V3.6** — 3-axis 73.41 (+1.55) · Long Text 78.54 (+0.50)

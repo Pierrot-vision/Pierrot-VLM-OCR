@@ -45,7 +45,7 @@
 
 ## 📰 News
 
-- 2026-09-03 — 🏆 **[KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2) 단독 1위** — 3축 **77.91** (BizOnAI 76.90) · 본문 **79.67** · 표 **58.34** — [채점 기준](LAB/pierrotocrvlm/pierrotocrvlm.md#학습셋-형식과-평가셋-형식이-다르다--채점-기준을-두-가지로-쓰는-이유)
+- 2026-09-03 — 🏆 **[KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2) 단독 1위** — 3축 **77.91** (BizOnAI 76.90) · 본문 **79.67** · 표 **58.34** — [채점 기준](LAB/pierrotocrvlm/pierrotocrvlm.md#채점-기준을-두-가지로-쓰는-이유)
 - 2026-09-01 — 📈 **KDoc-OCRBench-V2 V3.8** — 3축 73.74 (+0.26) · 표 48.84 (+0.83)
 - 2026-08-28 — 📈 **KDoc-OCRBench-V2 V3.7** — 3축 73.48 (+0.07) · 표 48.01 (+1.41)
 - 2026-08-24 — 📈 **KDoc-OCRBench-V2 V3.6** — 3축 73.41 (+1.55) · 본문 78.54 (+0.50)
