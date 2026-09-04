@@ -270,5 +270,5 @@ This project (code and documentation) is licensed under **CC BY-NC-SA 4.0** — 
 
 ## 📮 Contact
 
-- Please reach out via [email](mailto:peternara@naver.com) or a [GitHub Issue](https://github.com/Pierrot-vision/Pierrot-VLM/issues) — questions, inquiries, and hiring. I will answer as best I can.
+- Please reach out via [email](mailto:peternara@naver.com) or a [GitHub Issue](https://github.com/Pierrot-vision/Pierrot-VLM/issues) — questions, inquiries, and hiring (by email). I will answer as best I can.
 - Note that questions already answered on GitHub (README, code, docs) may not receive a reply.

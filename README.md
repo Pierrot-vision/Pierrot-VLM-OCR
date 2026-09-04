@@ -250,7 +250,7 @@ Pierrot_VLM_OCR/
 
 ---
 
-## 📚 참조 (Reference)
+## 📚 Reference
 
 관련 논문 정리 · 리뷰 → [Pierrot-vision/Reading-Papers — VLM-OCR](https://github.com/Pierrot-vision/Reading-Papers#-vlm-ocr)
 
@@ -268,5 +268,5 @@ Pierrot_VLM_OCR/
 
 ## 📮 문의
 
-- [메일](mailto:peternara@naver.com) 또는 [GitHub Issue](https://github.com/Pierrot-vision/Pierrot-VLM/issues) 를 통해 관련 질문·문의·채용 부탁드립니다. 대답할수 있는 내용이라면 성실이 답변드리겠습니다.
+- [메일](mailto:peternara@naver.com) 또는 [GitHub Issue](https://github.com/Pierrot-vision/Pierrot-VLM/issues) 를 통해 관련 질문·문의·채용(메일) 부탁드립니다. 대답할수 있는 내용이라면 성실이 답변드리겠습니다.
 - 참고로, 이미 GitHub(README · 코드 · 문서)에 있는 내용을 다시 문의하시면 답을 드리지 못할 수 있는 점 양해 부탁드립니다.
