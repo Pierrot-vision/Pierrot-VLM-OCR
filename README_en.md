@@ -234,7 +234,7 @@ Pierrot_VLM_OCR/
 Design, training method, experiments, and results are consolidated into **one document**:
 [**LAB/pierrotocrvlm/pierrotocrvlm.md**](LAB/pierrotocrvlm/pierrotocrvlm.md) (written in Korean).
 
-It does not record only what worked. **15 rejected hypotheses** and **14 measurement
+It does not record only what worked. **17 rejected hypotheses** and **14 measurement
 defects** are in there too — those were the most expensive part of this project.
 
 | Section | Content |
