@@ -46,11 +46,11 @@ Input is one page image; output is **Markdown / JSON**.
 
 ## 📰 News
 
-- 2026-09-03 — 🏆 **Sole 1st at 77.91 on the 3-axis mean** — **+1.01** ahead of commercial BizOnAI-OCR (76.90) · also 1st on Long Text **79.67** and Table **58.34** — [scoring](LAB/pierrotocrvlm/pierrotocrvlm.md#머리글-규약-무시-채점-2026-09-03)
-- 2026-09-01 — 📈 **V3.8** — 3-axis **73.74** (+0.26) · Table **48.84** (+0.83)
-- 2026-08-28 — 📈 **V3.7** — 3-axis **73.48** (+0.07) · Table **48.01** (+1.41)
-- 2026-08-24 — 📈 **V3.6** — 3-axis **73.41** (+1.55) · Long Text **78.54** (+0.50)
-- 2026-08-22 — 🏆 **2nd on [KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2)** — 3-axis 71.86
+- 2026-09-03 — 🏆 **[KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2) 1st** — 3-axis **77.91** (BizOnAI 76.90) · Long Text **79.67** · Table **58.34** — [scoring](LAB/pierrotocrvlm/pierrotocrvlm.md#머리글-규약-무시-채점-2026-09-03)
+- 2026-09-01 — 📈 **KDoc-OCRBench-V2 V3.8** — 3-axis 73.74 (+0.26) · Table 48.84 (+0.83)
+- 2026-08-28 — 📈 **KDoc-OCRBench-V2 V3.7** — 3-axis 73.48 (+0.07) · Table 48.01 (+1.41)
+- 2026-08-24 — 📈 **KDoc-OCRBench-V2 V3.6** — 3-axis 73.41 (+1.55) · Long Text 78.54 (+0.50)
+- 2026-08-22 — 🏆 **KDoc-OCRBench-V2 2nd** — 3-axis 71.86
 - 2026-08-22 — 🚀 **Inference code released**
 
 ---
