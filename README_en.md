@@ -72,11 +72,11 @@ Input is one page image; output is **Markdown / JSON**.
 
 **Two-column academic paper**
 
-![two-column paper parsing demo](https://github.com/Pierrot-vision/Pierrot-VLM-OCR/releases/download/v0.1.0/demo_paper.gif)
+![two-column paper parsing demo](https://github.com/Pierrot-vision/Pierrot-VLM-OCR/releases/download/v0.2.0/demo_paper.gif)
 
 **Public-sector report**
 
-![public-sector report parsing demo](https://github.com/Pierrot-vision/Pierrot-VLM-OCR/releases/download/v0.1.0/demo_kdi.gif)
+![public-sector report parsing demo](https://github.com/Pierrot-vision/Pierrot-VLM-OCR/releases/download/v0.2.0/demo_kdi.gif)
 
 ---
 
