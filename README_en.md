@@ -59,7 +59,7 @@ Input is one page image; output is **Markdown / JSON**.
 
 | Rank | Model | Size | Header/Footer | Long Text | Table | 3-axis mean |
 |---:|---|---:|---:|---:|---:|---:|
-| **1** | **Ours** | **0.99B** | **96.09** | **79.63** | 58.27 | **78.00** |
+| **1** | **Ours** | **0.99B** | 96.09 | **79.63** | **58.27** | **78.00** |
 | 2 | BizOnAI-OCR *(commercial)* | undisclosed | 94.70 | 77.90 | 58.10 | 76.90 |
 | 3 | PaddleOCR-VL | 0.9B | 95.60 | 66.20 | 48.90 | 70.20 |
 | 4 | DeepSeek OCR | ~3B *(MoE, 0.57B active)* | 95.80 | 64.50 | 46.60 | 69.00 |
