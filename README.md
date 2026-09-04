@@ -45,7 +45,7 @@
 
 ## 📰 News
 
-- 2026-09-03 — 🏆 **[KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2) 단독 1위** — 3축 **77.94** (BizOnAI 76.90) · 본문 **79.65** · 표 **58.34** — [채점 기준](LAB/pierrotocrvlm/pierrotocrvlm.md#채점-기준을-두-가지로-쓰는-이유)
+- 2026-09-03 — 🏆 **[KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2) 단독 1위** — 3축 **78.00** (BizOnAI 76.90) · 본문 **79.63** · 표 **58.27** — [채점 기준](LAB/pierrotocrvlm/pierrotocrvlm.md#채점-기준을-두-가지로-쓰는-이유)
 - 2026-09-01 — 📈 **KDoc-OCRBench-V2 V3.8** — 3축 73.74 (+0.26) · 표 48.84 (+0.83)
 - 2026-08-28 — 📈 **KDoc-OCRBench-V2 V3.7** — 3축 73.48 (+0.07) · 표 48.01 (+1.41)
 - 2026-08-24 — 📈 **KDoc-OCRBench-V2 V3.6** — 3축 73.41 (+1.55) · 본문 78.54 (+0.50)
@@ -58,7 +58,7 @@
 
 | 순위 | 모델 | 크기 | Header/Footer | Long Text | Table | 3축 평균 |
 |---:|---|---:|---:|---:|---:|---:|
-| **1** | **Ours** | **0.99B** | 95.83 | **79.65** | **58.34** | **77.94** |
+| **1** | **Ours** | **0.99B** | **96.09** | **79.63** | 58.27 | **78.00** |
 | 2 | BizOnAI-OCR *(상업용)* | 비공개 | 94.70 | 77.90 | 58.10 | 76.90 |
 | 3 | PaddleOCR-VL | 0.9B | 95.60 | 66.20 | 48.90 | 70.20 |
 | 4 | DeepSeek OCR | ~3B *(MoE, 활성 0.57B)* | 95.80 | 64.50 | 46.60 | 69.00 |
@@ -130,7 +130,7 @@ python infer/infer_pierrotocrvlm.py --model ./outputs/pierrotocrvlm_v3/final \
 ### 여러 장 배치 — `benchmark/run_pages.py`
 
 ```bash
-# 벤치마크 최고점 경로(849쪽 3축 77.94 를 낸 조합)
+# 벤치마크 최고점 경로(849쪽 3축 78.00 을 낸 조합)
 python benchmark/run_pages.py --model ./outputs/pierrotocrvlm_v3/final \
     --images "/path/pages/*.jpg" --out results/md \
     --mode hybrid-page --body-fill --relayout-bands
