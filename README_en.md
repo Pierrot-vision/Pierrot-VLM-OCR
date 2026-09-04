@@ -46,7 +46,7 @@ Input is one page image; output is **Markdown / JSON**.
 
 ## 📰 News
 
-- 2026-09-03 — 🏆 **[KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2) 1st** — 3-axis **77.91** (BizOnAI 76.90) · Long Text **79.67** · Table **58.34** — [scoring](LAB/pierrotocrvlm/pierrotocrvlm.md#채점-기준을-두-가지로-쓰는-이유)
+- 2026-09-03 — 🏆 **[KDoc-OCRBench-V2](https://huggingface.co/datasets/ONTHEIT/KDoc-OCRBench-V2) 1st** — 3-axis **77.94** (BizOnAI 76.90) · Long Text **79.65** · Table **58.34** — [scoring](LAB/pierrotocrvlm/pierrotocrvlm.md#채점-기준을-두-가지로-쓰는-이유)
 - 2026-09-01 — 📈 **KDoc-OCRBench-V2 V3.8** — 3-axis 73.74 (+0.26) · Table 48.84 (+0.83)
 - 2026-08-28 — 📈 **KDoc-OCRBench-V2 V3.7** — 3-axis 73.48 (+0.07) · Table 48.01 (+1.41)
 - 2026-08-24 — 📈 **KDoc-OCRBench-V2 V3.6** — 3-axis 73.41 (+1.55) · Long Text 78.54 (+0.50)
@@ -59,7 +59,7 @@ Input is one page image; output is **Markdown / JSON**.
 
 | Rank | Model | Size | Header/Footer | Long Text | Table | 3-axis mean |
 |---:|---|---:|---:|---:|---:|---:|
-| **1** | **Ours** | **0.99B** | 95.71 | **79.67** | **58.34** | **77.91** |
+| **1** | **Ours** | **0.99B** | 95.83 | **79.65** | **58.34** | **77.94** |
 | 2 | BizOnAI-OCR *(commercial)* | undisclosed | 94.70 | 77.90 | 58.10 | 76.90 |
 | 3 | PaddleOCR-VL | 0.9B | 95.60 | 66.20 | 48.90 | 70.20 |
 | 4 | DeepSeek OCR | ~3B *(MoE, 0.57B active)* | 95.80 | 64.50 | 46.60 | 69.00 |
@@ -131,7 +131,7 @@ text) · `<stem>_layout.jpg` (with `--save-viz`).
 ### Many pages — `benchmark/run_pages.py`
 
 ```bash
-# the best benchmark path (the combination that produced 76.90 over 849 pages)
+# the best benchmark path (the combination that produced 77.94 over 849 pages)
 python benchmark/run_pages.py --model ./outputs/pierrotocrvlm_v3/final \
     --images "/path/pages/*.jpg" --out results/md \
     --mode hybrid-page --body-fill --relayout-bands
