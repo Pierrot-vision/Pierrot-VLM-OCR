@@ -71,13 +71,13 @@
 
 ## 🎬 데모
 
-**2단 조판 학술 논문**
+**2단 문서**
 
-![2단 조판 논문 파싱 데모](https://github.com/Pierrot-vision/Pierrot-VLM-OCR/releases/download/v0.2.0/demo_paper.gif)
+![2단 문서 파싱 데모](https://github.com/Pierrot-vision/Pierrot-VLM-OCR/releases/download/v0.2.0/demo_paper.gif)
 
-**공공 보고서**
+**1단 문서**
 
-![공공 보고서 파싱 데모](https://github.com/Pierrot-vision/Pierrot-VLM-OCR/releases/download/v0.2.0/demo_kdi.gif)
+![1단 문서 파싱 데모](https://github.com/Pierrot-vision/Pierrot-VLM-OCR/releases/download/v0.2.0/demo_kdi.gif)
 
 ---
 
